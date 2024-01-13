@@ -2,7 +2,7 @@
   <div id="root">
     <header>
       <div class="blog-name">
-        <NuxtLink to="/"><h1>Code Sphere</h1></NuxtLink>
+        <NuxtLink to="/"><h1>CLAN UNI</h1></NuxtLink>
       </div>
     </header>
     <a-row class="main" :gutter="16">
