@@ -72,10 +72,6 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .card {
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03),
-    0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
-  border-radius: 8px;
-
   .card-title {
     color: black;
     font-weight: 500;
@@ -83,27 +79,11 @@ export default Vue.extend({
     line-height: 80%;
   }
 
-  .card-cover {
-    border-radius: 8px 8px 0 0;
-  }
-
   .card-meta {
     min-height: 48px;
   }
 
   ::v-deep {
-    .ant-card-actions {
-      border-radius: 0 0 8px 8px;
-
-      > :first-child {
-        border-radius: 0 0 0 8px;
-      }
-
-      > :last-child {
-        border-radius: 0 0 8px 0;
-      }
-    }
-
     img {
       max-width: 100%;
     }

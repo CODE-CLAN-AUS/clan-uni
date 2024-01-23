@@ -1,13 +1,17 @@
 const fg = require('fast-glob')
-const { BlogPageType } = require('./src/enums/BlogPageType.ts')
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
+  // Allow lan in development
+  server: {
+    host: '0.0.0.0',
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'codesphere',
+    title: 'CLAN UNI',
     htmlAttrs: {
       lang: 'en',
     },
@@ -51,12 +55,7 @@ export default {
           const isFile = path.endsWith('.md')
           const route = isFile ? path.slice(0, -3) : path
 
-          return {
-            route: `/blog/${route}`,
-            payload: {
-              pageType: isFile ? BlogPageType.Article : BlogPageType.Category,
-            },
-          }
+          return `/blog/${route}`
         })
         return dynamicRoutes
       })

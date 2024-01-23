@@ -25,9 +25,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.blog-post {
-  margin-bottom: 20px;
-}
-</style>
