@@ -34,9 +34,11 @@ body {
       background: #ff4444;
       height: 200px;
       border-top: 20px solid #cc0000;
+
       .blog-name {
         max-width: 760px;
         margin: 38px auto 0 auto;
+        
         h1 {
           font-size: 48px;
           color: #fff;
@@ -44,12 +46,41 @@ body {
         }
       }
     }
+
     .main {
       margin-top: -40px;
       @media (min-width: 1200px) {
         /* lg and higher */
         padding-right: 32px;
         padding-left: 32px;
+      }
+
+      .blog-post, .breadcrumbs {
+        margin-bottom: 20px;
+      }
+
+      .card {
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03),
+          0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
+        border-radius: 8px;
+
+        .card-cover {
+          border-radius: 8px 8px 0 0;
+        }
+
+        ::v-deep {
+          .ant-card-actions {
+            border-radius: 0 0 8px 8px;
+
+            > :first-child {
+              border-radius: 0 0 0 8px;
+            }
+
+            > :last-child {
+              border-radius: 0 0 8px 0;
+            }
+          }
+        }
       }
     }
   }

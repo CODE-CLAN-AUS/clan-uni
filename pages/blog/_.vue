@@ -1,5 +1,6 @@
 <template>
   <article>
+    <breadcrumbs :path="params.pathMatch" :treeData="$treeData" :pageTitle="isArticle ? article.title : null" />
     <blog-post
       v-if="isArticle"
       :article="article"
@@ -20,18 +21,9 @@
 </template>
 
 <script>
-const { BlogPageType } = require('@/src/enums/BlogPageType.ts')
-
 export default {
-  async asyncData({ $filesArray, payload, $content, params }) {
-    let isArticle
-    if (payload) {
-      // for Static mode
-      isArticle = payload.pageType === BlogPageType.Article
-    } else {
-      // for Server mode
-      isArticle = $filesArray.some((x) => x.path === `/${params.pathMatch}`)
-    }
+  async asyncData({ $filesArray, $treeData, $content, params }) {
+    const isArticle = $filesArray.some((x) => x.path === `/${params.pathMatch}`)
 
     const article = isArticle
       ? await $content('', params.pathMatch).fetch()
@@ -40,13 +32,7 @@ export default {
           .limit(5)
           .fetch()
 
-    return { article, isArticle, params }
+    return { article, isArticle, params, $treeData }
   },
 }
 </script>
-
-<style scoped>
-.blog-post {
-  margin-bottom: 20px;
-}
-</style>
