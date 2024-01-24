@@ -38,7 +38,7 @@ body {
       .blog-name {
         max-width: 760px;
         margin: 38px auto 0 auto;
-        
+
         h1 {
           font-size: 48px;
           color: #fff;
@@ -55,8 +55,16 @@ body {
         padding-left: 32px;
       }
 
-      .blog-post, .breadcrumbs {
+      .blog-post,
+      .breadcrumbs,
+      .menu {
         margin-bottom: 20px;
+      }
+
+      .menu {
+        border-radius: 8px;
+        overflow: clip;
+        min-height: 48.5px;
       }
 
       .card {

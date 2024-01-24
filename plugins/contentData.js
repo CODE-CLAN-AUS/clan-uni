@@ -27,6 +27,7 @@ function createTree(arr) {
         const newNode = {
           title: part,
           key: currentPath,
+          path: currentPath,
         }
 
         currentNode.push(newNode)

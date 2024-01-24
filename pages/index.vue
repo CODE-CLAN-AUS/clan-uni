@@ -1,5 +1,6 @@
 <template>
   <main>
+    <top-menu :path="params.pathMatch" :treeData="$treeData" isIndex />
     <blog-post
       v-for="post in posts"
       :key="post.slug"
@@ -13,15 +14,13 @@
 
 <script>
 export default {
-  async asyncData({ $content }) {
+  async asyncData({ $content, $treeData, params }) {
     const posts = await $content('', { deep: true })
       .sortBy('createdAt', 'desc')
       .limit(5)
       .fetch()
 
-    return {
-      posts,
-    }
+    return { posts, params, $treeData }
   },
 }
 </script>

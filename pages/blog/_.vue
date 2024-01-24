@@ -1,6 +1,11 @@
 <template>
   <article>
-    <breadcrumbs :path="params.pathMatch" :treeData="$treeData" :pageTitle="isArticle ? article.title : null" />
+    <breadcrumbs
+      :path="params.pathMatch"
+      :treeData="$treeData"
+      :pageTitle="isArticle ? article.title : null"
+    />
+    <top-menu :path="params.pathMatch" :treeData="$treeData" />
     <blog-post
       v-if="isArticle"
       :article="article"
