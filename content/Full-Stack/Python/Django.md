@@ -28,4 +28,4 @@ Exceedingly scalable.
 
 Some of the busiest sites on the web leverage Django’s ability to quickly and flexibly scale.
 
-![Local Video](/media/videos/test/sample-5s.mp4)
+<VideoPlayer video-src="/media/videos/test/sample-5s.mp4">
