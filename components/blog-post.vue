@@ -74,7 +74,6 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .card {
   .card-title {
-    color: black;
     font-weight: 500;
     font-size: 125%;
     line-height: 80%;

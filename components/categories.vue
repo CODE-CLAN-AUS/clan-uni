@@ -1,5 +1,5 @@
 <template>
-  <a-card title="Categories" :bordered="true" class="card">
+  <a-card title="Courses" :bordered="true" class="card">
     <a-tree
       v-model:expandedKeys="expandedKeys"
       show-line
