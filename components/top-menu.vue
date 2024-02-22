@@ -49,7 +49,6 @@ export default {
 
 <style lang="scss" scoped>
 .top-menu-link {
-  color: black;
   font-weight: 500;
 }
 </style>
