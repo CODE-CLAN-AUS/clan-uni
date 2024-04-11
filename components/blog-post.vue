@@ -24,7 +24,7 @@
       <NuxtLink v-if="showArticleLink" :to="articleLink">
         <a-icon key="ellipsis" type="ellipsis" />
       </NuxtLink>
-      <div v-if="preview == false" class="rw-ui-container"></div>
+      <div v-if="preview == false && path" class="rw-ui-container"></div>
     </template>
   </a-card>
 </template>
@@ -58,7 +58,8 @@ export default Vue.extend({
       return this.preview && this.path
     },
     articleLink() {
-      return '/blog'.concat(this.path)
+      const path = this.path
+      return path ? '/blog'.concat(this.path) : '/'
     },
   },
 
