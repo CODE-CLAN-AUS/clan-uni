@@ -1,11 +1,6 @@
 <template>
-  <a-menu v-if="subCategories.length" mode="horizontal" class="card menu">
-    <a-menu-item
-      v-for="item in subCategories"
-      :key="item.key"
-      class="top-menu-link"
-    >
-      <a @click="goToCategory(item.path)">{{ item.title }}</a>
+  <a-menu v-if="!hideTopMenu" mode="horizontal" class="card menu">
+    <a-menu-item v-for="item in subCategories" :key="item.key" class="top-menu-link">
     </a-menu-item>
   </a-menu>
 </template>
@@ -37,6 +32,12 @@ export default {
       }
 
       return ref && Array.isArray(ref) ? ref : []
+    },
+    hideTopMenu() {
+      return this.isDetailView || this.subCategories.length < 1
+    },
+    isDetailView() {
+      return this.$store.state.isDetailView
     },
   },
   methods: {
