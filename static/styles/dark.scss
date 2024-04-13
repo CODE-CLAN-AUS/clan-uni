@@ -12,6 +12,7 @@
 
   --dark-switch-checked-background: #3E3636;
 
+  --invisible-color: #ffffff00;
 }
 
 body {
@@ -21,8 +22,6 @@ body {
     header {
       background: var(--dark-header-accent-color);
       border-top: 20px solid var(--dark-header-muted-color);
-
-
     }
   }
 }
@@ -98,6 +97,28 @@ body {
 
       a {
         color: var(--dark-layout-hover-color) !important;
+      }
+    }
+
+    li.ant-menu-item:hover {
+      border-bottom-color: var(--dark-layout-hover-color);
+      background-color: unset;
+      color: var(--dark-layout-foreground-color);
+    }
+
+    li.ant-menu-submenu {
+      border-bottom-color: var(--invisible-color);
+
+      div.ant-menu-submenu-title {
+        color: var(--dark-layout-foreground-color);
+      }
+      
+      &.ant-menu-submenu-open {
+        border-bottom-color: var(--dark-layout-hover-color);
+
+        div.ant-menu-submenu-title {
+          color: var(--dark-layout-hover-color);
+        }
       }
     }
   }

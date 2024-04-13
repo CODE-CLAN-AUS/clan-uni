@@ -1,6 +1,7 @@
 <template>
   <a-menu v-if="!hideTopMenu" mode="horizontal" class="card menu">
     <a-menu-item v-for="item in subCategories" :key="item.key" class="top-menu-link">
+      <NuxtLink :to="generateCategoryUrl(item.path)">{{ item.title }}</NuxtLink>
     </a-menu-item>
   </a-menu>
 </template>
@@ -41,8 +42,8 @@ export default {
     },
   },
   methods: {
-    goToCategory(path) {
-      this.$router.push(`/blog${path}`)
+    generateCategoryUrl(path) {
+      return `/blog${path}`
     },
   },
 }
