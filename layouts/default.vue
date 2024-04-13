@@ -63,6 +63,8 @@
 <script>
 import Vue from 'vue'
 
+const matchMediaString = '(prefers-color-scheme: dark)'
+
 export default Vue.extend({
   data() {
     return {
@@ -71,12 +73,18 @@ export default Vue.extend({
   },
   mounted() {
     this.setDetailView()
+    this.setDarkModeBasedOnUserPreferences()
+    window.matchMedia(matchMediaString).addEventListener('change', this.setDarkModeBasedOnUserPreferences)
     this.loaded = true
   },
   methods: {
     setDetailView() {
       const viewMode = this.$route.query.view
       this.$store.commit('setIsDetailView', viewMode === 'course')
+    },
+    setDarkModeBasedOnUserPreferences() {
+      const value = window.matchMedia && window.matchMedia(matchMediaString).matches
+      this.handleDarkModeChange(value)
     },
     handleDarkModeChange(checked) {
       this.darkModeValue = checked
@@ -88,8 +96,8 @@ export default Vue.extend({
         return this.$store.state.darkMode
       },
       set(value) {
-        this.$store.commit('setDarkMode', value);
-        document.documentElement.setAttribute('data-theme', this.$store.state.darkMode ? 'dark' : 'light');
+        this.$store.commit('setDarkMode', value)
+        document.documentElement.setAttribute('data-theme', this.$store.state.darkMode ? 'dark' : 'light')
       }
     },
     isDetailView() {
@@ -104,10 +112,12 @@ export default Vue.extend({
 
 :root[data-theme='dark'] {
   @import '@/static/styles/dark';
+  @import '@/static/styles/prism-vsc-dark-plus';
 }
 
 :root[data-theme='light'] {
   @import '@/static/styles/light';
+  @import '@/static/styles/prism-vs';
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
