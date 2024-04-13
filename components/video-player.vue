@@ -1,10 +1,10 @@
 <template>
-  <video controls :src="videoSrc" class="video-player"></video>
+  <video controls :src="src" class="video-player"></video>
 </template>
 
 <script>
 export default {
-  props: ['videoSrc'],
+  props: ['src'],
 }
 </script>
 

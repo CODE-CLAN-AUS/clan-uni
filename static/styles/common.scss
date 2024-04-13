@@ -1,5 +1,5 @@
 :root {
-  --main-font-family: "Work Sans", sans-serif;
+  --main-font-family: 'Work Sans', sans-serif;
   --default-font-weight: 400;
   --default-text-color: white;
 
@@ -12,7 +12,7 @@
 body {
   font-family: var(--main-font-family);
   font-weight: var(--default-font-weight);
-  
+
   font-size: 100%;
   margin: 0;
 
@@ -23,11 +23,22 @@ body {
       height: 140px;
       display: flex;
       justify-content: space-between;
-      padding: 16px 64px 0 64px;
+      padding-top: 16px;
+      padding-right: 5%;
+      padding-bottom: 0;
+      padding-left: 5%;
+
+      @media (min-width: 1397px) {
+        padding-right: calc(55% - 768px);
+        padding-left: calc(55% - 768px);
+      }
     }
 
     .main {
+      max-width: 1536.8px;
       margin-top: -20px;
+      margin-right: auto !important;
+      margin-left: auto !important;
       @media (min-width: 1200px) {
         /* lg and higher */
         padding-right: 32px;
@@ -46,8 +57,14 @@ body {
         min-height: 48.5px;
       }
 
-      .ant-card-head {
-        border-radius: var(--card-border-radius);
+      .breadcrumbs {
+        .ant-card-head {
+          border-radius: var(--card-border-radius);
+        }
+      }
+
+      :not(.breadcrumbs)>.ant-card-head {
+        border-radius: var(--card-border-radius) var(--card-border-radius) 0 0;
       }
 
       .card {
@@ -82,7 +99,7 @@ body {
                 transition: fill 0.2s ease-out;
               }
             }
-    
+
             &:hover svg {
               path {
                 transition: fill 0.2s ease-out;

@@ -1,5 +1,5 @@
 <template>
-  <a-card :bordered="false" class="card breadcrumbs">
+  <a-card v-if="!isDetailView" :bordered="false" class="card breadcrumbs">
     <template #title>
       <a-breadcrumb>
         <a-breadcrumb-item
@@ -82,6 +82,9 @@ export default {
       }
 
       return levels
+    },
+    isDetailView() {
+      return this.$store.state.isDetailView
     },
   },
 }
