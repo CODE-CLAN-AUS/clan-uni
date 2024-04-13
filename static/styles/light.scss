@@ -4,8 +4,10 @@
 
   --light-layout-background-color: #efeff3;
   --light-layout-foreground-color: black;
+  --light-layout-subtle-foreground-color: #000000a6;
   --light-layout-hover-color: #1890ff;
 
+  --dark-switch-unchecked-background: #3E363640;
 }
 
 body {
@@ -15,14 +17,19 @@ body {
     header {
       background: var(--light-header-accent-color);
       border-top: 20px solid var(--light-header-muted-color);
-
-
     }
   }
 }
 
 :root[data-theme='light'] {
+  .ant-switch {
+    background: var(--dark-switch-unchecked-background);
+  }
   .ant-card {
+    .ant-tree-title > a {
+      color: var(--light-layout-subtle-foreground-color);
+    }
+
     .ant-card-head-title a {
       color: var(--light-layout-foreground-color) !important;
 

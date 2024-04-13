@@ -9,6 +9,9 @@
   --dark-card-background: #212121;
   --dark-card-border-color: #404040;
   --dark-card-footer-background: #414141;
+
+  --dark-switch-checked-background: #3E3636;
+
 }
 
 body {
@@ -25,6 +28,9 @@ body {
 }
 
 :root[data-theme='dark'] {
+  .ant-switch-checked {
+    background: var(--dark-switch-checked-background);
+  }
   .ant-card-head {
     border-bottom-color: var(--dark-card-border-color);
   }
@@ -37,7 +43,7 @@ body {
     .ant-card-head-title > a,
     .ant-card-extra,
     .ant-card-meta-title,
-    .ant-tree-title,
+    .ant-tree-title > a,
     .nuxt-content h1,
     .nuxt-content h2,
     .nuxt-content h3,
@@ -144,8 +150,9 @@ body {
     }
   }
 
-  .ant-tree-node-content-wrapper:hover {
-    background-color: var(--dark-layout-hover-color);
+  .ant-tree-node-content-wrapper:hover,
+  .ant-tree-node-selected {
+    background-color: var(--dark-layout-hover-color) !important;
   }
 
   .ant-tree-switcher {
