@@ -1,0 +1,69 @@
+:root {
+  --light-header-accent-color: #ff4444;
+  --light-header-muted-color: #cc0000;
+
+  --light-layout-background-color: #efeff3;
+  --light-layout-foreground-color: black;
+  --light-layout-subtle-foreground-color: #000000a6;
+  --light-layout-hover-color: #1890ff;
+  --light-layout-code-background: #f0f0f0;
+
+  --dark-switch-unchecked-background: #3E363640;
+}
+
+.light {
+  body {
+    background-color: var(--light-layout-background-color);
+  
+    #root {
+      header {
+        background: var(--light-header-accent-color);
+        border-top: 20px solid var(--light-header-muted-color);
+      }
+    }
+  }
+
+  .ant-switch {
+    background: var(--dark-switch-unchecked-background);
+  }
+
+  .ant-menu { /* need modification? */
+    li.ant-menu-item.top-menu-link:hover {
+      color: var(--light-layout-hover-color);
+
+      span.ant-menu-title-content a {
+        color: var(--light-layout-hover-color) !important;
+      }
+    }
+  }
+
+  .ant-card {
+    .ant-tree-title > a {
+      color: var(--light-layout-subtle-foreground-color);
+    }
+
+    .ant-card-head-title a {
+      color: var(--light-layout-foreground-color) !important;
+
+      &:hover {
+        color: var(--light-layout-hover-color) !important;
+      }
+    }
+
+    .nuxt-content {
+      pre.shiki {
+        background-color: var(--light-layout-code-background);
+      }
+    }
+
+    .ant-card-actions {
+      a {
+        &:hover svg {
+          path {
+            fill: var(--light-layout-foreground-color);
+          }
+        }
+      }
+    }
+  }
+}

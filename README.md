@@ -1,3 +1,42 @@
-# clan-uni
-A repository of expert training material designed for experienced developers who are expert in the field and yet want to advance their deep knowledge to improve the quality of their practice and step towards mastery.
-**Not suitable for material that is more relevant to beginners in the field.**
+# Content v2 Minimal Starter
+
+Look at the [Content documentation](https://content.nuxt.com/) to learn more.
+
+## Setup
+
+Make sure to install the dependencies:
+
+```bash
+# yarn
+yarn install
+
+# npm
+npm install
+
+# pnpm
+pnpm install
+```
+
+## Development Server
+
+Start the development server on http://localhost:3000
+
+```bash
+npm run dev
+```
+
+## Production
+
+Build the application for production:
+
+```bash
+npm run build
+```
+
+Locally preview production build:
+
+```bash
+npm run preview
+```
+
+Checkout the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

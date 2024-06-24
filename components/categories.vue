@@ -1,80 +1,99 @@
 <template>
   <a-card title="Courses" :bordered="true" class="card">
-    <a-tree :selectedKeys="selectedKeys" :expandedKeys="expandedKeys" show-line defaultExpandAll
-      :tree-data="treeDataProp">
-      <a-icon slot="switcherIcon" type="down-circle" />
-      <template #title="node">
-        <NuxtLink :to="`/blog${node.path}`">{{ node.title }}</NuxtLink>
+    <a-tree
+      v-model:selectedKeys="selectedKeys"
+      v-model:expandedKeys="expandedKeys"
+      show-line
+      show-icon
+      defaultExpandAll
+      autoExpandParent
+      :tree-data="coursesTree"
+    >
+      <template #icon="{ key }"
+        ><NuxtLink v-if="key && isLeaf(key)" :to="key"><FileOutlined /></NuxtLink
+      ></template>
+      <template #title="{ dataRef }">
+        <NuxtLink v-if="dataRef" :to="dataRef.key">{{
+          subpathToTitle(dataRef.title)
+        }}</NuxtLink>
+      </template>
+      <template #switcherIcon="{ dataRef, defaultIcon }">
+        <component :is="defaultIcon" />
       </template>
     </a-tree>
   </a-card>
 </template>
 
-<script>
-import Vue from 'vue'
+<script setup lang="ts">
+import { ref, onMounted, watch } from "vue";
+import { useRoute } from "vue-router";
+import { subpathToTitle } from "~/src/helpers/blogPostHelper";
+import { useContentData } from "~/stores/contentData";
 
-export default Vue.extend({
-  data() {
-    return {
-      selectedKeys: [],
-      treeDataProp: [],
-      expandedKeys: [],
-    }
-  },
-  mounted() {
-    this.treeDataProp = this.$treeData
-    this.selectProperNode(this.$route.path, this.treeDataProp)
-  },
-  watch: {
-    '$route': function (to) {
-      const fullPath = to.fullPath;
+const contentData = useContentData();
+const coursesTree = contentData.coursesTree;
+const selectedKeys = ref([]);
+const expandedKeys = ref([]);
 
-      if (fullPath.startsWith('/blog')) {
-        this.selectProperNode(fullPath.slice(5), this.treeDataProp);
-      } else {
-        if (this.selectedKeys.length) {
-          this.selectedKeys = [];
+const props = defineProps({
+  coursesTree: Array,
+  filesArray: Array,
+});
+
+const route = useRoute();
+
+const isLeaf = (key: string) => {
+  return props.filesArray && props.filesArray.find((file) => file === key);
+};
+
+const selectProperNode = (subPath, treeData) => {
+  expandedKeys.value = [];
+  for (let i = 0; i < treeData.length; i++) {
+    const node = treeData[i];
+
+    if (node.key === subPath) {
+      selectedKeys.value = [node.key];
+      if (canNodeExpand(node)) {
+        expandNode(node);
+      }
+      return true;
+    } else if (node.children && node.children.length) {
+      const result = selectProperNode(subPath, node.children);
+      if (result) {
+        if (canNodeExpand(node)) {
+          expandNode(node);
         }
-
-        if (this.expandedKeys.length) {
-          this.expandedKeys = [];
-        }
+        return true;
       }
     }
-  },
-  methods: {
-    selectProperNode(subPath, treeData) {
-      this.expandedKeys = []
-      for (let i = 0; i < treeData.length; i++) {
-        const node = treeData[i]
+  }
 
-        if (node.key == subPath) {
-          this.selectedKeys = [node.key]
-          if (this.canNodeExpand(node)) {
-            this.expandNode(node)
-            treeData[i].expanded = true
-          }
-          return true
-        } else if (node.children && node.children.length) {
-          const result = this.selectProperNode(subPath, node.children)
-          if (result) {
-            if (this.canNodeExpand(node)) {
-              this.expandNode(node)
-              treeData[i].expanded = true
-            }
-            return true
-          }
-        }
-      }
+  return false;
+};
 
-      return false
-    },
-    canNodeExpand(node) {
-      return node.children && node.children.length && this.expandedKeys.indexOf(node.key) === -1
-    },
-    expandNode(node) {
-      this.expandedKeys = [...this.expandedKeys, node.key]
-    },
-  },
-})
+const canNodeExpand = (node) => {
+  return node.children && node.children.length && !expandedKeys.value.includes(node.key);
+};
+
+const expandNode = (node) => {
+  expandedKeys.value = [...expandedKeys.value, node.key];
+};
+
+onMounted(() => {
+  selectProperNode(route.path, coursesTree);
+});
+
+watch(
+  () => route.path,
+  (newPath) => {
+    const fullPath = newPath;
+
+    if (fullPath !== "/") {
+      selectProperNode(fullPath.slice(5), coursesTree);
+    } else {
+      selectedKeys.value = [];
+      expandedKeys.value = [];
+    }
+  }
+);
 </script>
