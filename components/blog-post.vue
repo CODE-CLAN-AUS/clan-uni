@@ -1,75 +1,69 @@
 <template>
-  <a-card :bordered="false" class="card" :extra="formatDate(article.createdAt)">
+  <a-card :bordered="false" class="card" :extra="timeToRead">
     <template #title>
-      <NuxtLink :to="articleLink" class="card-title">{{
-        article.title
-      }}</NuxtLink>
+      <NuxtLink :to="articleLink" class="card-title">{{ article?.title }}</NuxtLink>
     </template>
-    <img
-      v-if="article.cover"
-      slot="cover"
-      :alt="article.title"
-      :src="article.cover"
-      class="card-cover"
-    />
-    <a-card-meta :title="article.author" class="card-meta">
-      <a-avatar
-        v-if="article.email"
-        slot="avatar"
-        :src="getAvatarURL(article.email)"
+    <template #cover>
+      <img
+        v-if="article?.cover"
+        :alt="article?.title"
+        :src="article?.cover"
+        class="card-cover"
       />
+    </template>
+    <a-card-meta :title="article?.author" class="card-meta">
+      <template #avatar>
+        <a-avatar :src="avatarUrl" />
+      </template>
     </a-card-meta>
-    <nuxt-content style="font-size: 125%" :document="{ body }" />
-    <template slot="actions">
+    <ContentRenderer
+      v-if="article"
+      :key="article._id"
+      :value="article"
+      :excerpt="!!showArticleLink && !!article.excerpt"
+      class="nuxt-content"
+    ></ContentRenderer>
+    <template #actions>
       <NuxtLink v-if="showArticleLink" :to="articleLink">
-        <a-icon key="ellipsis" type="ellipsis" />
+        <EllipsisOutlined />
       </NuxtLink>
-      <div v-if="preview == false && path" class="rw-ui-container"></div>
+      <div v-if="!preview && path" class="rw-ui-container"></div>
     </template>
   </a-card>
 </template>
 
-<script>
-import Vue from 'vue'
-import { generateGravatarUrl, formatDate } from '../src/helpers'
+<script setup>
+import { computed, ref } from "vue";
+import { generateAvatarUrl } from "~/src/helpers/avatar";
+import { calculateReadTime } from "~/src/helpers/blogPostHelper";
 
-export default Vue.extend({
-  props: {
-    article: {
-      required: true,
-    },
-    preview: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    path: {
-      type: String,
-    },
+const props = defineProps({
+  article: {
+    type: Object,
+    required: true,
   },
+  preview: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  path: {
+    type: String,
+    required: false,
+  },
+});
 
-  computed: {
-    body() {
-      return this.preview && this.article.excerpt
-        ? this.article.excerpt
-        : this.article.body
-    },
-    showArticleLink() {
-      return this.preview && this.path
-    },
-    articleLink() {
-      const path = this.path
-      return path ? '/blog'.concat(this.path) : '/'
-    },
-  },
+const timeToRead = `${calculateReadTime(props.article?.body)} min read`;
 
-  methods: {
-    getAvatarURL(email) {
-      return generateGravatarUrl(email, 32)
-    },
-    formatDate,
-  },
-})
+const avatarUrl = ref(generateAvatarUrl(props.article?.github));
+
+const showArticleLink = computed(() => {
+  return props.preview && props.path;
+});
+
+const articleLink = computed(() => {
+  return props.path ? props.path : "/";
+});
 </script>
 
 <style lang="scss" scoped>
@@ -84,10 +78,8 @@ export default Vue.extend({
     min-height: 48px;
   }
 
-  ::v-deep {
-    img {
-      max-width: 100%;
-    }
+  :deep(img) {
+    max-width: 100%;
   }
 }
 </style>

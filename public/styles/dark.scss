@@ -1,0 +1,217 @@
+:root {
+  --dark-header-accent-color: #D72323;
+  --dark-header-muted-color: #cc0000;
+
+  --dark-layout-background-color: #121212;
+  --dark-layout-foreground-color: white;
+  --dark-layout-hover-color: #ff4444;
+
+  --dark-card-background: #212121;
+  --dark-card-border-color: #404040;
+  --dark-card-footer-background: #414141;
+
+  --dark-switch-checked-background: #3E3636;
+
+  --invisible-color: #ffffff00;
+}
+
+.dark {
+  body {
+    background-color: var(--dark-layout-background-color);
+
+    #root {
+      header {
+        background: var(--dark-header-accent-color);
+        border-top: 20px solid var(--dark-header-muted-color);
+      }
+    }
+  }
+
+  .ant-switch-checked {
+    background: var(--dark-switch-checked-background);
+  }
+
+  .ant-card-head {
+    border-bottom-color: var(--dark-card-border-color);
+  }
+
+  .ant-card {
+    background-color: var(--dark-card-background);
+    border-color: var(--dark-card-border-color);
+    color: var(--dark-layout-foreground-color);
+
+    .ant-tree-title > a,
+    .ant-card-head-title,
+    .ant-card-head-title>a,
+    .ant-card-extra,
+    .ant-card-meta-title {
+      color: var(--dark-layout-foreground-color);
+    }
+
+    .nuxt-content {
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        color: var(--dark-layout-foreground-color);
+      }
+
+      pre.shiki {
+        background-color: var(--dark-switch-checked-background);
+      }
+
+      a {
+        color: var(--dark-layout-hover-color);
+
+        &:hover {
+          color: var(--dark-header-accent-color);
+        }
+      }
+    }
+
+    .ant-card-head-title>a:hover {
+      color: var(--dark-layout-hover-color);
+    }
+
+    .ant-card-actions {
+      border-top-color: var(--dark-card-border-color);
+      background-color: var(--dark-card-footer-background);
+
+      a {
+        svg {
+          path {
+            fill: var(--dark-layout-foreground-color);
+          }
+        }
+
+        &:hover svg {
+          path {
+            fill: var(--dark-layout-hover-color);
+          }
+        }
+      }
+    }
+  }
+
+  .ant-menu {
+    background-color: var(--dark-card-background);
+    border-bottom-color: var(--dark-card-border-color);
+
+    a {
+      color: var(--dark-layout-foreground-color);
+    }
+
+    li.ant-menu-item.top-menu-link:hover {
+      border-bottom-color: var(--dark-layout-hover-color);
+      background-color: unset;
+      color: var(--dark-layout-foreground-color);
+
+      span.ant-menu-title-content a {
+        color: var(--dark-layout-hover-color) !important;
+      }
+    }
+
+    .ant-menu-item:hover::after,
+    .ant-menu-submenu:hover::after,
+    .ant-menu-item-active::after,
+    .ant-menu-submenu-active::after,
+    .ant-menu-item-open::after,
+    .ant-menu-submenu-open::after {
+      border-bottom-color: var(--dark-layout-hover-color) !important;
+    }
+
+    li.ant-menu-submenu {
+      border-bottom-color: var(--invisible-color);
+
+      div.ant-menu-submenu-title {
+        color: var(--dark-layout-foreground-color);
+      }
+
+      &.ant-menu-submenu-open {
+        border-bottom-color: var(--dark-layout-hover-color);
+
+        div.ant-menu-submenu-title {
+          color: var(--dark-layout-hover-color);
+        }
+      }
+    }
+  }
+
+  .ant-breadcrumb {
+    .ant-breadcrumb-link {
+      color: var(--dark-layout-foreground-color);
+
+      a {
+        color: var(--dark-layout-foreground-color);
+
+        &:hover {
+          color: var(--dark-layout-hover-color);
+        }
+      }
+    }
+
+    .ant-breadcrumb-separator {
+      color: var(--dark-layout-foreground-color);
+    }
+
+    .ant-dropdown-trigger {
+      svg {
+        path {
+          fill: var(--dark-layout-foreground-color);
+        }
+      }
+    }
+  }
+
+  .ant-dropdown-menu {
+    background-color: var(--dark-card-footer-background);
+
+    .ant-dropdown-menu-item {
+      a {
+        color: var(--dark-layout-foreground-color);
+
+        &:hover {
+          color: var(--dark-layout-hover-color);
+        }
+      }
+
+      &.ant-dropdown-menu-item-active {
+        background-color: var(--dark-layout-hover-color);
+
+        a {
+          color: var(--dark-layout-foreground-color);
+        }
+      }
+    }
+  }
+
+  .ant-tree {
+    background-color: unset;
+
+    .ant-tree-node-content-wrapper {
+      color: var(--dark-layout-foreground-color);
+
+      &:hover {
+        background-color: var(--dark-layout-hover-color) !important;
+      }
+
+      .ant-tree-iconEle.ant-tree-icon__customize {
+        a > span > svg > path {
+          fill: var(--dark-layout-foreground-color);
+        }
+      }
+    }
+
+    .ant-tree-node-selected {
+      background-color: var(--dark-header-accent-color) !important;
+    }
+
+    .ant-tree-switcher {
+      background: none !important;
+      color: var(--dark-layout-foreground-color) !important;
+    }
+  }
+}
