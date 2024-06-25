@@ -34,7 +34,6 @@
 </template>
 
 <script setup>
-import { onMounted } from "#imports";
 import { useContentData } from "~/stores/contentData";
 import { useRoute } from "#vue-router";
 
