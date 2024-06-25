@@ -87,7 +87,6 @@ import { ref, onMounted, watch } from "vue";
 import { useUiOptions } from "~/stores/uiOptions";
 import { useContentData } from "~/stores/contentData";
 import { useRoute } from "#vue-router";
-import { useColorMode } from "#imports";
 
 const route = useRoute();
 const uiOptions = useUiOptions();
