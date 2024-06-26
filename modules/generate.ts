@@ -21,7 +21,11 @@ async function listFilesInDirectory(directory: string, prefix = '') {
 
       // Check if the name ends with 'index', if so, replace it with '/'
       if (nameWithoutNumberPrefix === 'index') {
-        return path.join('/', prefix, '/').replace(/\\/g, '/');
+        if (prefix.length) {
+          return path.join('/', prefix).replace(/\\/g, '/');
+        } else {
+          return path.join('/', prefix, '/').replace(/\\/g, '/');
+        }
       }
 
       return '/' + path.join(prefix, nameWithoutNumberPrefix).replace(/\\/g, '/');
