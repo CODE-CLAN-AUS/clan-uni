@@ -1,10 +1,5 @@
 // https://nuxt.com/docs/guide/directory-structure/nuxt.config#nuxt-config-file
 export default defineNuxtConfig({
-  nitro: {
-    prerender: {
-      failOnError: false,
-    },
-  },
   modules: [
     'nuxt-content-assets',
     '@nuxt/content',
