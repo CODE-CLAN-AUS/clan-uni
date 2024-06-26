@@ -86,7 +86,7 @@
 import { ref, onMounted, watch } from "vue";
 import { useUiOptions } from "~/stores/uiOptions";
 import { useContentData } from "~/stores/contentData";
-import { useRoute } from "#vue-router";
+import { useRoute } from "vue-router";
 
 const route = useRoute();
 const uiOptions = useUiOptions();
