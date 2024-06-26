@@ -35,7 +35,7 @@
 
 <script setup>
 import { useContentData } from "~/stores/contentData";
-import { useRoute } from "#vue-router";
+import { useRoute } from "vue-router";
 
 const { treeData, filesArray } = useContentData();
 const a = useContent();
