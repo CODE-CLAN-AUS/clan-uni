@@ -25,7 +25,6 @@
 
 <script setup>
 import { computed } from "vue";
-import { subpathToTitle } from "~/src/helpers/blogPostHelper";
 import { useUiOptions } from "~/stores/uiOptions";
 
 const uiOptions = useUiOptions();
