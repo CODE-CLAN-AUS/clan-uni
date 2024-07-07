@@ -86,25 +86,16 @@
 import { ref, onMounted, watch } from "vue";
 import { useUiOptions } from "~/stores/uiOptions";
 import { useContentData } from "~/stores/contentData";
-import { useRoute } from "vue-router";
 
-const route = useRoute();
 const uiOptions = useUiOptions();
 const contentData = useContentData();
 const colorMode = useColorMode();
 
-const { data: allContent } = await useAsyncData(() => queryContent().find());
-contentData.set(allContent.value);
 const coursesTree = contentData.coursesTree;
 const filesArray = contentData.filesArray;
 
 const isDetailView = ref(uiOptions.isDetailView);
 const isDarkMode = ref(uiOptions.isDarkMode);
-
-const setDetailView = () => {
-  const viewMode = route.query.view;
-  uiOptions.setIsDetailView(viewMode === "course");
-};
 
 const initiateIsDarkMode = () => {
   const value = colorMode.value === "dark";
@@ -114,7 +105,6 @@ const initiateIsDarkMode = () => {
 
 onMounted(() => {
   initiateIsDarkMode();
-  setDetailView();
 });
 
 watch(isDarkMode, (newValue) => {
