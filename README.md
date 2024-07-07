@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/8b8db315-b660-404a-8b13-d5adc8d56885/deploy-status)](https://app.netlify.com/sites/clan-uni/deploys)
+
 # Content v2 Minimal Starter
 
 Look at the [Content documentation](https://content.nuxt.com/) to learn more.

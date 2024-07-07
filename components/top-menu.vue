@@ -7,9 +7,9 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
-import { subpathToTitle } from '~/src/helpers/blogPostHelper';
-import { useUiOptions } from '~/stores/uiOptions';
+import { computed } from "vue";
+import { subpathToTitle } from "~/src/helpers/blogPostHelper";
+import { useUiOptions } from "~/stores/uiOptions";
 
 const props = defineProps({
   path: {
@@ -25,7 +25,7 @@ const props = defineProps({
 const uiOptions = useUiOptions();
 
 const subCategories = computed(() => {
-  const names = props.path ? props.path.split('/') : [];
+  const names = props.path ? props.path.split("/") : [];
   let ref = props.treeData;
 
   for (let i = 0; i < names.length; i++) {
