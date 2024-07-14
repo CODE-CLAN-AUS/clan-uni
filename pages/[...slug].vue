@@ -1,16 +1,14 @@
 <template>
   <NuxtLayout>
     <main v-if="isIndex">
-      <!-- <top-menu path="/" :treeData="treeData" :isIndex="isIndex" /> -->
       <blog-post v-if="page" :article="page" class="blog-post" />
     </main>
-    <article v-else>
+    <main v-else>
       <breadcrumbs
         :path="currentPath"
         :treeData="treeData"
         :pageTitle="isArticle ? page.title : null"
       />
-      <!-- <top-menu :path="currentPath" :treeData="treeData" /> -->
       <blog-post
         v-if="isArticle"
         :article="page"
@@ -27,23 +25,42 @@
           preview
         />
       </template>
-    </article>
+    </main>
   </NuxtLayout>
 </template>
 
 <script setup>
 import { useContentData } from "~/stores/contentData";
 import { useRoute } from "vue-router";
+
 const { treeData, filesArray } = useContentData();
-const a = useContent();
-const page = a.page;
+const content = useContent();
+const { page } = content;
 const route = useRoute();
+
 const currentPath = route.path;
 const isIndex = currentPath === "/";
 const isArticle = filesArray.includes(currentPath);
-console.log(currentPath);
 const articles = isArticle
   ? []
   : (await useAsyncData(async () => await queryContent(currentPath).find()))?.data
       ?.value ?? [];
+
+const pageValue = page.value;
+const pageTitle = pageValue && pageValue.title ? pageValue.title : "";
+const trimedTitle = isIndex
+  ? "CLAN UNI"
+  : pageTitle
+  ? `${pageTitle} | Clan Uni`
+  : "CLAN UNI";
+const description = (pageValue && pageValue.description) ?? "Caln Uni";
+const trimedDescription =
+  description.length > 155 ? description.slice(0, 155) + "…" : description;
+
+useSeoMeta({
+  title: trimedTitle,
+  description,
+  ogTitle: pageTitle,
+  ogDescription: trimedDescription,
+});
 </script>
