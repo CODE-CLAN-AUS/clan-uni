@@ -1,4 +1,4 @@
-import type { ParsedContent } from '@nuxt/content/dist/runtime/types';
+import type { ParsedContent } from '@nuxt/content';
 import type { ITreeNode } from '../interfaces/ITreeNode';
 import type { DataNode } from 'ant-design-vue/es/tree';
 

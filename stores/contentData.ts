@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { createFilesArray, createTree, ITreeNodesToDataNodes } from '~/src/helpers/treeMaker';
-import type { ParsedContent } from '@nuxt/content/dist/runtime/types';
+import type { ParsedContent } from '@nuxt/content';
 import type { ITreeNode } from '~/src/interfaces/ITreeNode';
 import type { DataNode } from 'ant-design-vue/es/tree';
 
