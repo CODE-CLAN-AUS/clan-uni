@@ -1,16 +1,14 @@
 <template>
   <NuxtLayout>
     <main v-if="isIndex">
-      <!-- <top-menu path="/" :treeData="treeData" :isIndex="isIndex" /> -->
       <blog-post v-if="page" :article="page" class="blog-post" />
     </main>
-    <article v-else>
+    <main v-else>
       <breadcrumbs
         :path="currentPath"
         :treeData="treeData"
         :pageTitle="isArticle ? page.title : null"
       />
-      <!-- <top-menu :path="currentPath" :treeData="treeData" /> -->
       <blog-post
         v-if="isArticle"
         :article="page"
@@ -27,7 +25,7 @@
           preview
         />
       </template>
-    </article>
+    </main>
   </NuxtLayout>
 </template>
 
