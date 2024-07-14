@@ -39,7 +39,6 @@ async function listFilesInDirectory(directory: string, prefix = '') {
 export default defineNuxtModule({
   async setup(_moduleOptions, nuxt) {
     const paths = await listFilesInDirectory('./content');
-    paths.forEach((path) => {console.log(path);});
     nuxt.hook('nitro:config', (nitroConfig) => {
       if (nitroConfig && nitroConfig.prerender) {
         nitroConfig.prerender.routes = nitroConfig.prerender.routes || [];
