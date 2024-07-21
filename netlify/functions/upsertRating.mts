@@ -6,8 +6,6 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
   const data: IRating = JSON.parse(event.body || '{}');
   const { fingerprint, url, rating } = data;
 
-  console.log(process.env.FAUNADB_SECRET);
-
   const client = new Client({
     secret: process.env.FAUNADB_SECRET as string
   });
@@ -29,13 +27,13 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
 
       result = await client.query(
         q.Update(documentRef, {
-          data: { rating, updatedAt: new Date() }
+          data: { rating }
         })
       );
     } else {
       result = await client.query(
         q.Create(q.Collection('Ratings'), {
-          data: { fingerprint, url, rating, createdAt: new Date() }
+          data: { fingerprint, url, rating, createdAt: q.Now() }
         })
       );
     }
