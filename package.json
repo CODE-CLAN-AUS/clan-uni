@@ -17,8 +17,10 @@
     "sass": "^1.77.4"
   },
   "dependencies": {
+    "@netlify/functions": "^2.8.1",
     "@pinia/nuxt": "^0.5.1",
     "ant-design-vue": "^4.1.0",
+    "faunadb": "^4.8.0",
     "nuxt-content-assets": "^1.4.4",
     "pinia": "^2.1.7"
   }
