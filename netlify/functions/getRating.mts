@@ -23,10 +23,11 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
             q.Get(matchCondition),
             null
           ),
-          ratings: q.Map(
-            q.Paginate(q.Match(q.Index('all_by_url'), url)),
+          ratingsPage: q.Paginate(q.Match(q.Index('all_by_url'), url)),
+          ratings: q.Select(["data"], q.Map(
+            q.Var('ratingsPage'),
             q.Lambda('X', q.Select(['data', 'rating'], q.Get(q.Var('X'))))
-          ),
+          )),
           totalRatings: q.Sum(q.Var('ratings')),
           count: q.Count(q.Var('ratings'))
         },
@@ -49,7 +50,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error })
+      body: JSON.stringify({ error: 'Failed to retrieve comment data.' })
     };
   }
 };
