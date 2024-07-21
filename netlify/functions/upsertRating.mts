@@ -45,7 +45,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Failed to upsert rating.' })
+      body: JSON.stringify({ error })
     };
   }
 };
