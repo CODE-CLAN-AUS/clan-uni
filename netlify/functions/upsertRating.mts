@@ -2,13 +2,13 @@ import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { Client, query as q } from 'faunadb';
 import type IRating from "../../src/interfaces/IRating"
 
-const client = new Client({
-  secret: process.env.FAUNADB_SECRET as string
-});
-
 const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   const data: IRating = JSON.parse(event.body || '{}');
   const { fingerprint, url, rating } = data;
+
+  const client = new Client({
+    secret: process.env.FAUNADB_SECRET as string
+  });
 
   try {
     const matchCondition = q.Match(
