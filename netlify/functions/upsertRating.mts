@@ -6,6 +6,8 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
   const data: IRating = JSON.parse(event.body || '{}');
   const { fingerprint, url, rating } = data;
 
+  console.log(process.env.FAUNADB_SECRET);
+
   const client = new Client({
     secret: process.env.FAUNADB_SECRET as string
   });
