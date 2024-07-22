@@ -46,11 +46,13 @@ const getRating = async () => {
     return;
   }
 
-  console.log(data);
   if (data.value) {
-    averageRating.value = data.value.averageRating;
-    count.value = data.value.count;
-    document.value = data.value.document;
+    const averageRatingValue = JSON.parse(data.value).averageRating;
+    const countValue = JSON.parse(data.value).count;
+    const documentValue = JSON.parse(data.value).document;
+    averageRating.value = averageRatingValue;
+    count.value = countValue;
+    document.value = documentValue;
   }
 };
 
