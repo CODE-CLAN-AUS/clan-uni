@@ -30,7 +30,7 @@ const selectedRating = ref(1);
 const fingerprint = ref("");
 
 const getRating = async () => {
-  const { data, pending, error } = await useFetch("/.netlify/functions/getCommentData", {
+  const { data, pending, error } = await useFetch("/.netlify/functions/getRating", {
     method: "POST",
     body: JSON.stringify({
       fingerprint: fingerprint.value,
