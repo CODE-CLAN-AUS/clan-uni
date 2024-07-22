@@ -20,7 +20,7 @@
           v-for="post in articles"
           :key="post._id"
           :article="post"
-          :path="post._path"
+          :path="post && post._path"
           class="blog-post"
           preview
         />

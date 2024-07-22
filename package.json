@@ -22,6 +22,7 @@
     "ant-design-vue": "^4.1.0",
     "faunadb": "^4.8.0",
     "nuxt-content-assets": "^1.4.4",
-    "pinia": "^2.1.7"
+    "pinia": "^2.1.7",
+    "uuid": "^10.0.0"
   }
 }

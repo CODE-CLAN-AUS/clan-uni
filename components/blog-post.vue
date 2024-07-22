@@ -27,13 +27,16 @@
       <NuxtLink v-if="showArticleLink" :to="articleLink">
         <EllipsisOutlined />
       </NuxtLink>
-      <div v-if="!preview && path" class="rw-ui-container"></div>
+      <ClientOnly>
+        <rating-widget v-if="path" :path="path" />
+      </ClientOnly>
     </template>
   </a-card>
 </template>
 
 <script setup>
 import { computed, ref } from "vue";
+import RatingWidget from "./rating-widget";
 import { generateAvatarUrl } from "~/src/helpers/avatar";
 import { calculateReadTime } from "~/src/helpers/blogPostHelper";
 
