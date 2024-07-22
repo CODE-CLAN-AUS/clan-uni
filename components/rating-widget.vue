@@ -46,6 +46,7 @@ const getRating = async () => {
     return;
   }
 
+  console.log(data);
   if (data.value) {
     averageRating.value = data.value.averageRating;
     count.value = data.value.count;
