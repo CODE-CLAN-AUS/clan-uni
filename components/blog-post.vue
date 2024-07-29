@@ -27,7 +27,7 @@
       <NuxtLink v-if="showArticleLink" :to="articleLink">
         <EllipsisOutlined />
       </NuxtLink>
-      <ClientOnly>
+      <ClientOnly v-else>
         <rating-widget v-if="path" :path="path" />
       </ClientOnly>
     </template>
