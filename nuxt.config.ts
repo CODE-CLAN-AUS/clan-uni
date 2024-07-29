@@ -4,6 +4,7 @@ export default defineNuxtConfig({
     'nuxt-content-assets',
     '@nuxt/content',
     '@ant-design-vue/nuxt',
+    'vuetify-nuxt-module',
     '@pinia/nuxt',
     '@nuxtjs/color-mode',
     "nuxt-lazytube"
@@ -15,8 +16,10 @@ export default defineNuxtConfig({
     },
     highlight: {
       langs: [
+        'bash',
         'csharp',
         'typescript',
+        'markdown',
       ],
       theme: {
         default: 'light-plus',
