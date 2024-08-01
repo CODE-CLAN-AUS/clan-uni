@@ -78,25 +78,6 @@ body {
         .nuxt-content {
           font-size: 125%;
 
-          h1 { //em
-            margin: 16px 0 12px;
-          }
-          h2 {
-            margin: 14px 0 10px;
-          }
-          h3 {
-            margin: 12px 0 8px;
-          }
-          h4 {
-            margin: 10px 0 6px;
-          }
-          ul, ol {
-            margin: 12px 48px 8px;
-          }
-          p {
-            margin-top: 8px;
-          }
-
           pre.shiki {
             padding: var(--code-box-padding);
             border-radius: var(--code-border-radius);
@@ -125,7 +106,6 @@ body {
           .rating-container {
             width: fit-content;
             margin: 0 auto;
-            padding-top: 2px;
           }
 
           a {

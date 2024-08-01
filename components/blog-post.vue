@@ -4,32 +4,20 @@
       <NuxtLink :to="articleLink" class="card-title">{{ article?.title }}</NuxtLink>
     </template>
     <template #cover>
-      <img
-        v-if="article?.cover"
-        :alt="article?.title"
-        :src="article?.cover"
-        class="card-cover"
-      />
+      <img v-if="article?.cover" :alt="article?.title" :src="article?.cover" class="card-cover" />
     </template>
     <a-card-meta :title="article?.author" class="card-meta">
       <template #avatar>
         <a-avatar :src="avatarUrl" />
       </template>
     </a-card-meta>
-    <ContentRenderer
-      v-if="article"
-      :key="article._id"
-      :value="article"
-      :excerpt="!!showArticleLink && !!article.excerpt"
-      class="nuxt-content"
-    ></ContentRenderer>
+    <ContentRenderer v-if="article" :key="article._id" :value="article"
+      :excerpt="!!showArticleLink && !!article.excerpt" class="nuxt-content"></ContentRenderer>
     <template #actions>
       <NuxtLink v-if="showArticleLink" :to="articleLink">
         <EllipsisOutlined />
       </NuxtLink>
-      <ClientOnly v-else>
-        <rating-widget v-if="path" :path="path" />
-      </ClientOnly>
+      <rating-widget v-else-if="path" :path="path" />
     </template>
   </a-card>
 </template>
