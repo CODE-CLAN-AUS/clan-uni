@@ -4,7 +4,7 @@ author: Pouria Rabeti
 tags: Internal
 ---
 # Welcome to CODE CLAN University
-Imagine a world where anyone, regardless of their financial means or location, can access quality coding courses and education material.  This project embodies the true spirit of collaboration and is a shining example of the power of open source to drive positive change in the world of programming. 
+CODE CLAN University is a dynamic community forum that provides free technical training courses for software developers. Our mission is to empower individuals with the knowledge and skills they need to succeed in the tech industry. Our community is driven by a shared passion for learning and a commitment to helping one another grow. Join us today and become part of a supportive network of like-minded individuals!
 
 If you want to share an educational material that is related to programming by any means, we encourage and appreciate your contribution to this project.
 

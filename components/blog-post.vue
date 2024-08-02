@@ -1,12 +1,12 @@
 <template>
-  <a-card :bordered="false" class="card" :extra="timeToRead">
-    <template #title>
+  <a-card :bordered="false" :class="cardClass" :extra="cardExtra">
+    <template v-if="!noHeader" #title>
       <NuxtLink :to="articleLink" class="card-title">{{ article?.title }}</NuxtLink>
     </template>
     <template #cover>
       <img v-if="article?.cover" :alt="article?.title" :src="article?.cover" class="card-cover" />
     </template>
-    <a-card-meta :title="article?.author" class="card-meta">
+    <a-card-meta v-if="!noAuthor" :title="article?.author" class="card-meta">
       <template #avatar>
         <a-avatar :src="avatarUrl" />
       </template>
@@ -42,9 +42,17 @@ const props = defineProps({
     type: String,
     required: false,
   },
+  noHeader: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  noAuthor: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
 });
-
-const timeToRead = `${calculateReadTime(props.article?.body)} min read`;
 
 const avatarUrl = ref(generateAvatarUrl(props.article?.github));
 
@@ -55,10 +63,25 @@ const showArticleLink = computed(() => {
 const articleLink = computed(() => {
   return props.path ? props.path : "/";
 });
+
+const cardExtra = computed(() => {
+  return props.noHeader ? null : `${calculateReadTime(props.article?.body)} min read`;
+})
+
+const cardClass = computed(() => {
+  return { 'card': true, 'no-header-no-meta': props.noHeader && props.noAuthor };
+})
 </script>
 
 <style lang="scss" scoped>
 .card {
+  &.no-header-no-meta {
+
+    ::v-deep .ant-card-body {
+      padding-top: 0;
+    }
+  }
+
   .card-title {
     font-weight: 500;
     font-size: 125%;

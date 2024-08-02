@@ -1,7 +1,7 @@
 <template>
   <NuxtLayout>
     <main v-if="isIndex">
-      <blog-post v-if="page" :article="page" class="blog-post" />
+      <blog-post v-if="page" :article="page" no-author no-header class="blog-post" />
     </main>
     <main v-else>
       <breadcrumbs :path="currentPath" :treeData="treeData" :pageTitle="isArticle ? page.title : null" />
