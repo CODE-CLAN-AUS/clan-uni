@@ -25,8 +25,8 @@
 <script setup>
 import { computed, ref } from "vue";
 import RatingWidget from "./rating-widget";
-import { generateAvatarUrl } from "~/src/helpers/avatar";
-import { calculateReadTime } from "~/src/helpers/blogPostHelper";
+import { generateAvatarUrl } from "../src/helpers/avatar";
+import { calculateReadTime } from "../src/helpers/blogPostHelper";
 
 const props = defineProps({
   article: {

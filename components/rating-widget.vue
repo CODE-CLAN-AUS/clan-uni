@@ -1,36 +1,33 @@
 <template>
   <div class="rating-container">
-    <a-spin v-if="!canRate" :style="{ padding: '4px 70px 4px' }" />
-    <v-rating
-      v-else
-      v-model="averageRating"
-      active-color="orange-lighten-1"
-      color="orange-lighten-1"
-      density="compact"
-      hover
-      :style="{ marginLeft: '20px' }"
-    />
-    <a-tooltip placement="right">
-      <template #title>
-        <span>{{ count }} People Voted</span>
-      </template>
-      <InfoCircleFilled
-        :style="{
-          fontSize: '20px',
-          color: 'lightblue',
+    <a-spin v-if="!canRate" :style="{ padding: '4.8px 70px 0px' }" />
+    <template v-else>
+      <a-rate @change="upsertRating" :style="{ marginLeft: '18px' }" character="★" :value="averageRating"
+        :allow-clear="false" />
+      <a-tooltip placement="right">
+        <template #title>
+          <span>{{ count }} People Voted</span>
+        </template>
+        <InfoCircleFilled :style="{
+          fontSize: '18px',
+          color: 'LightSkyBlue',
           position: 'relative',
-          top: canRate ? '-6px' : '1.5px',
-          left: '6px',
+          top: '0.2px',
+          left: '12px',
           marginRight: '30px',
-        }"
-      />
-    </a-tooltip>
+        }" />
+      </a-tooltip>
+    </template>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, watch } from "vue";
+import { useRouter } from 'vue-router';
 import { v4 as uuidv4 } from "uuid";
+import { useErrorHandler } from "../composables/useErrorHandler";
+import { useFetch } from "nuxt/app";
+import { nextTick } from "process";
 
 const props = defineProps({
   path: {
@@ -44,7 +41,9 @@ const count = ref(0);
 const fingerprint = ref("");
 const canRate = ref(false);
 
-watch(averageRating, async (rate: number) => {
+const upsertRating = async (rate: number) => {
+  const errorMessage = "Failed to rate this content.";
+
   canRate.value = false;
 
   const { data, error } = await useFetch("/.netlify/functions/upsertRating", {
@@ -59,17 +58,26 @@ watch(averageRating, async (rate: number) => {
     },
   });
 
-  if (error.value) {
-    console.error("Failed to submit rating:", error.value);
+  if (error && error.value) {
+    useErrorHandler(error.value, errorMessage);
+    canRate.value = true;
     return;
   }
 
-  if (data.value) {
-    await getRating();
+  if (data && data.value) {
+    try {
+      const parsedData = JSON.parse(data.value);
+      await getRating();
+    } catch (err) {
+      useErrorHandler(err, errorMessage);
+      canRate.value = true;
+    }
   }
-});
+};
 
 const getRating = async () => {
+  const errorMessage = "Failed to get ratings.";
+
   const { data, error } = await useFetch("/.netlify/functions/getRating", {
     method: "POST",
     body: JSON.stringify({
@@ -81,20 +89,29 @@ const getRating = async () => {
     },
   });
 
+  console.log(data && data.value)
+  console.log(error && error.value)
+
   canRate.value = true;
 
-  if (error.value) {
-    console.error("Failed to get ratings:", error.value);
+  if (error && error.value) {
+    useErrorHandler(error.value, errorMessage);
     return;
   }
 
-  if (data.value) {
-    const averageRatingValue = JSON.parse(data.value).averageRating;
-    const countValue = JSON.parse(data.value).count;
-    averageRating.value = averageRatingValue;
-    count.value = countValue;
+  if (data && data.value) {
+    try {
+      const parsed = JSON.parse(data.value);
+      averageRating.value = parsed.averageRating;
+      count.value = parsed.count;
+    } catch (err) {
+      useErrorHandler(err, errorMessage);
+    }
   }
+  console.log('done getRating')
 };
+
+const router = useRouter();
 
 onMounted(async () => {
   if (typeof window !== "undefined") {
@@ -106,8 +123,9 @@ onMounted(async () => {
       localStorage.setItem("fingerprint", fingerprint.value);
     }
 
-    await getRating();
-    await getRating();
+    nextTick(async () => {
+      await getRating();
+    });
   }
 });
 </script>

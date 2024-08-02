@@ -1,4 +1,4 @@
-import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
+import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { Client, query as q } from 'faunadb';
 import type IRating from "../../src/interfaces/IRating"
 

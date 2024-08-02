@@ -3,8 +3,8 @@
 </template>
 
 <script setup lang="ts">
-import { useContentData } from "~/stores/contentData";
-import { useUiOptions } from "~/stores/uiOptions";
+import { useContentData } from "./stores/contentData";
+import { useUiOptions } from "./stores/uiOptions";
 import { useRoute } from "vue-router";
 
 const contentData = useContentData();

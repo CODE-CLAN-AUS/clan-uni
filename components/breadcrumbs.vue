@@ -3,7 +3,9 @@
     <template #title>
       <a-breadcrumb>
         <a-breadcrumb-item>
-          <NuxtLink to="/"> <HomeOutlined /></NuxtLink>
+          <NuxtLink to="/">
+            <HomeOutlined />
+          </NuxtLink>
         </a-breadcrumb-item>
         <a-breadcrumb-item v-for="(crumb, index) in breadCrumbs" :key="crumb._path">
           <NuxtLink v-if="index !== breadCrumbs.length - 1" :to="crumb._path">
@@ -25,7 +27,7 @@
 
 <script setup>
 import { computed } from "vue";
-import { useUiOptions } from "~/stores/uiOptions";
+import { useUiOptions } from "../stores/uiOptions";
 
 const uiOptions = useUiOptions();
 
@@ -82,8 +84,8 @@ const breadCrumbs = computed(() => {
         title: props.pageTitle
           ? props.pageTitle
           : names.length
-          ? names[names.length - 1]
-          : "",
+            ? names[names.length - 1]
+            : "",
         _path: props.path,
       };
     }

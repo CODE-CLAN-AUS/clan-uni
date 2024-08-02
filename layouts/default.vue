@@ -61,8 +61,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted, watch } from "vue";
-import { useUiOptions } from "~/stores/uiOptions";
-import { useContentData } from "~/stores/contentData";
+import { useUiOptions } from "../stores/uiOptions";
+import { useContentData } from "../stores/contentData";
 
 const uiOptions = useUiOptions();
 const contentData = useContentData();
