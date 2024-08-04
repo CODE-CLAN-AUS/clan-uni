@@ -32,9 +32,11 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
           count: q.Count(q.Var('ratings')),
           ratingCounts: q.Reduce(
             q.Lambda(['acc', 'rating'],
-              q.Merge(q.Var('acc'), { [q.Var('rating')]: q.Add(q.Select(q.Var('rating'), q.Var('acc'), 0), 1) })
+              q.Merge(q.Var('acc'), {
+                [q.ToString(q.Var('rating'))]: q.Add(q.Select(q.ToString(q.Var('rating')), q.Var('acc'), 0), 1)
+              })
             ),
-            { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
+            { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0 },
             q.Var('ratings')
           )
         },
