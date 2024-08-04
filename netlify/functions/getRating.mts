@@ -23,21 +23,26 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
             q.Get(matchCondition),
             null
           ),
-          ratingsPage: q.Paginate(q.Match(q.Index('all_by_url'), url), { size: 100000 }), // Increase size if needed
+          ratingsPage: q.Paginate(q.Match(q.Index('all_by_url'), url)),
           ratings: q.Select(["data"], q.Map(
             q.Var('ratingsPage'),
             q.Lambda('X', q.Select(['data', 'rating'], q.Get(q.Var('X'))))
           )),
           totalRatings: q.Sum(q.Var('ratings')),
           count: q.Count(q.Var('ratings')),
-          ratingCounts: q.Reduce(
-            q.Lambda(['acc', 'rating'],
-              q.Merge(q.Var('acc'), {
-                [q.ToString(q.Var('rating'))]: q.Add(q.Select(q.ToString(q.Var('rating')), q.Var('acc'), 0), 1)
-              })
-            ),
-            { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0 },
-            q.Var('ratings')
+          ratingDistribution: q.Map(
+            q.Range(1, 6), // Range 1 to 5 (inclusive) for possible ratings
+            lambda => q.Let(
+              {
+                ratingCount: q.Count(
+                  q.Filter(
+                    q.Var('ratings'),
+                    q.Equals(q.Current(lambda), q.Select(['data', 'rating'], q.Get(q.Current(lambda))))
+                  )
+                )
+              },
+              { count: q.Var('ratingCount'), rating: q.Current(lambda) }
+            )
           )
         },
         {
@@ -47,8 +52,8 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
             0,
             q.Divide(q.Var('totalRatings'), q.Var('count'))
           ),
-          ratingCounts: q.Var('ratingCounts'),
-          document: q.Var('match')
+          document: q.Var('match'),
+          ratingDistribution: q.Var('ratingDistribution')
         }
       )
     );
