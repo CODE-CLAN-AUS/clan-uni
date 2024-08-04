@@ -65,7 +65,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Failed to retrieve comment data.' })
+      body: JSON.stringify({ error })
     };
   }
 };
