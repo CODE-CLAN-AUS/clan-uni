@@ -103,11 +103,6 @@ body {
         .ant-card-actions {
           border-radius: 0 0 var(--card-border-radius) var(--card-border-radius);
 
-          .rating-container {
-            width: fit-content;
-            margin: 0 auto;
-          }
-
           a {
             svg {
               path {
@@ -129,6 +124,14 @@ body {
       .ant-tree-switcher.ant-tree-switcher-noop {
         display: none;
       }
+    }
+  }
+
+  div.ant-popover-inner {
+    padding-bottom: 4px !important;
+
+    table>tbody>tr:nth-child(5)>td {
+      border-bottom: none !important;
     }
   }
 }

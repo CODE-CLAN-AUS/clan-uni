@@ -1,12 +1,12 @@
 <template>
-  <div class="rating-container">
+  <div>
     <a-spin v-if="!canRate" :style="{ padding: '4.8px 70px 0px' }" />
     <template v-else>
       <a-rate @change="upsertRating" :style="{ marginLeft: '18px' }" character="★" :value="averageRating"
         :allow-clear="false" />
-      <a-tooltip placement="right">
+      <a-tooltip v-if="isMobile" placement="right">
         <template #title>
-          <span>{{ count }} People Voted</span>
+          <span>{{ formatNumberToFixedDecimals(count) }} People Voted</span>
         </template>
         <InfoCircleFilled :style="{
           fontSize: '18px',
@@ -17,17 +17,50 @@
           marginRight: '30px',
         }" />
       </a-tooltip>
+      <a-popover v-else placement="top">
+        <template #content class="rating-popover">
+          <a-table :columns="columns" :data-source="tableData" :pagination="false" :show-header="false" size="small">
+            <template #bodyCell="{ column, record }">
+              <template v-if="column.dataIndex === 'label'">
+                {{ record.label }}
+              </template>
+              <template v-else-if="column.dataIndex === 'percentage'">
+                <a-progress :percent="record.percentage" :show-info="false" size="small" />
+              </template>
+              <template v-else-if="column.dataIndex === 'votes'">
+                ({{ formatNumberWithCommas(record.votes) }} Votes)
+              </template>
+            </template>
+          </a-table>
+        </template>
+        <template #title>
+          <span>{{ formatNumberToFixedDecimals(averageRating) }} out of 5</span>
+        </template>
+        <InfoCircleFilled :style="{
+          fontSize: '18px',
+          color: 'LightSkyBlue',
+          position: 'relative',
+          top: '0.2px',
+          left: '12px',
+          marginRight: '30px',
+        }" />
+      </a-popover>
     </template>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from "vue";
-import { useRouter } from 'vue-router';
+import { ref, reactive, onMounted } from "vue";
 import { v4 as uuidv4 } from "uuid";
 import { useErrorHandler } from "../composables/useErrorHandler";
+import { formatNumberWithCommas, formatNumberToFixedDecimals } from "../composables/useNumber";
 import { useFetch } from "nuxt/app";
 import { nextTick } from "process";
+import { Grid } from "ant-design-vue";
+import type { ColumnsType } from 'ant-design-vue/es/table';
+import type { IRatingTableRow } from "../types/IRatingTableRow";
+
+const isMobile = Grid?.useBreakpoint()?.value?.xs ?? false;
 
 const props = defineProps({
   path: {
@@ -36,10 +69,56 @@ const props = defineProps({
   },
 });
 
+const columns: ColumnsType<IRatingTableRow> = [
+  {
+    dataIndex: 'label',
+  },
+  {
+    dataIndex: 'percentage',
+    width: 200,
+  },
+  {
+    dataIndex: 'votes',
+    align: 'right',
+  }
+];
+
 const averageRating = ref(0);
 const count = ref(0);
 const fingerprint = ref("");
 const canRate = ref(false);
+const tableData: IRatingTableRow[] = reactive([
+  {
+    key: 1,
+    label: 'Excellent',
+    percentage: 0,
+    votes: 0
+  },
+  {
+    key: 2,
+    label: 'Good',
+    percentage: 0,
+    votes: 0
+  },
+  {
+    key: 3,
+    label: 'Average',
+    percentage: 0,
+    votes: 0
+  },
+  {
+    key: 4,
+    label: 'Poor',
+    percentage: 0,
+    votes: 0
+  },
+  {
+    key: 5,
+    label: 'Awful',
+    percentage: 0,
+    votes: 0
+  }
+]);
 
 const upsertRating = async (rate: number) => {
   const errorMessage = "Failed to rate this content.";
@@ -89,9 +168,6 @@ const getRating = async () => {
     },
   });
 
-  console.log(data && data.value)
-  console.log(error && error.value)
-
   canRate.value = true;
 
   if (error && error.value) {
@@ -108,10 +184,7 @@ const getRating = async () => {
       useErrorHandler(err, errorMessage);
     }
   }
-  console.log('done getRating')
 };
-
-const router = useRouter();
 
 onMounted(async () => {
   if (typeof window !== "undefined") {

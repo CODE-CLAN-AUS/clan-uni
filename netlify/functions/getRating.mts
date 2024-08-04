@@ -1,6 +1,6 @@
 import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { Client, query as q } from 'faunadb';
-import type IRating from "../../types/IRating"
+import type IRating from "../../types/IRating";
 
 const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   const data: IRating = JSON.parse(event.body || '{}');
@@ -23,13 +23,20 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
             q.Get(matchCondition),
             null
           ),
-          ratingsPage: q.Paginate(q.Match(q.Index('all_by_url'), url)),
+          ratingsPage: q.Paginate(q.Match(q.Index('all_by_url'), url), { size: 100000 }), // Increase size if needed
           ratings: q.Select(["data"], q.Map(
             q.Var('ratingsPage'),
             q.Lambda('X', q.Select(['data', 'rating'], q.Get(q.Var('X'))))
           )),
           totalRatings: q.Sum(q.Var('ratings')),
-          count: q.Count(q.Var('ratings'))
+          count: q.Count(q.Var('ratings')),
+          ratingCounts: q.Reduce(
+            q.Lambda(['acc', 'rating'],
+              q.Merge(q.Var('acc'), { [q.Var('rating')]: q.Add(q.Select(q.Var('rating'), q.Var('acc'), 0), 1) })
+            ),
+            { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
+            q.Var('ratings')
+          )
         },
         {
           count: q.Var('count'),
@@ -38,6 +45,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
             0,
             q.Divide(q.Var('totalRatings'), q.Var('count'))
           ),
+          ratingCounts: q.Var('ratingCounts'),
           document: q.Var('match')
         }
       )
