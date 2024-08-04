@@ -31,17 +31,17 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
           totalRatings: q.Sum(q.Var('ratings')),
           count: q.Count(q.Var('ratings')),
           ratingDistribution: q.Map(
-            q.Range(1, 6), // Range 1 to 5 (inclusive) for possible ratings
+            q.Range(1, 6, 1), // Corrected with increment
             lambda => q.Let(
               {
                 ratingCount: q.Count(
                   q.Filter(
                     q.Var('ratings'),
-                    q.Equals(q.Current(lambda), q.Select(['data', 'rating'], q.Get(q.Current(lambda))))
+                    (rating) => q.Equals(lambda, rating) // Using lambda directly
                   )
                 )
               },
-              { count: q.Var('ratingCount'), rating: q.Current(lambda) }
+              { count: q.Var('ratingCount'), rating: lambda }
             )
           )
         },
