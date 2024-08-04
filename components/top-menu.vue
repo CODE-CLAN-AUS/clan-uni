@@ -8,7 +8,7 @@
 
 <script setup>
 import { computed } from "vue";
-import { subpathToTitle } from "../src/helpers/blogPostHelper";
+import { subpathToTitle } from "../composables/useArticle";
 import { useUiOptions } from "../stores/uiOptions";
 
 const props = defineProps({

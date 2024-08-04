@@ -1,6 +1,6 @@
 import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { Client, query as q } from 'faunadb';
-import type IRating from "../../src/interfaces/IRating"
+import type IRating from "../../types/IRating"
 
 const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   const data: IRating = JSON.parse(event.body || '{}');

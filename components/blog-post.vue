@@ -25,8 +25,8 @@
 <script setup>
 import { computed, ref } from "vue";
 import RatingWidget from "./rating-widget";
-import { generateAvatarUrl } from "../src/helpers/avatar";
-import { calculateReadTime } from "../src/helpers/blogPostHelper";
+import { useAvatar } from "../composables/useAvatar";
+import { calculateReadTime } from "../composables/useArticle";
 
 const props = defineProps({
   article: {
@@ -54,7 +54,7 @@ const props = defineProps({
   },
 });
 
-const avatarUrl = ref(generateAvatarUrl(props.article?.github));
+const avatarUrl = ref(useAvatar(props.article?.github));
 
 const showArticleLink = computed(() => {
   return props.preview && props.path;

@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
-import { subpathToTitle } from "../src/helpers/blogPostHelper";
+import { subpathToTitle } from "../composables/useArticle";
 import { useContentData } from "../stores/contentData";
 
 const contentData = useContentData();

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
-import { createFilesArray, createTree, ITreeNodesToDataNodes } from '../src/helpers/treeMaker';
+import { createFilesArray, createTree, ITreeNodesToDataNodes } from '../composables/useTree';
 import type { ParsedContent } from '@nuxt/content';
-import type { ITreeNode } from '../src/interfaces/ITreeNode';
+import type { ITreeNode } from '../types/ITreeNode';
 import type { DataNode } from 'ant-design-vue/es/tree';
 
 export const useContentData = defineStore('contentData', {
