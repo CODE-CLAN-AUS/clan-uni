@@ -182,8 +182,8 @@ const getRating = async () => {
       count.value = parsed.count;
       const { counts, percentages } = calculateRatings(parsed.ratings);
       for (let i = 1; i < 6; i++) {
-        tableData[i].votes = counts[i];
-        tableData[i].percentage = percentages[i];
+        tableData[i - 1].votes = counts[i];
+        tableData[i - 1].percentage = percentages[i];
       }
     } catch (err) {
       useErrorHandler(err, errorMessage);
