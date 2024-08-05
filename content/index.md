@@ -137,6 +137,4 @@ After you are satisfied with your changes in the preview deployment, our team wi
 
 Thank you for your contribution! Your effort helps create a valuable resource for the community.
 
-If you have any questions, feel free to reach out to us at [contact@codeclan.org](mailto:contact@codeclan.org) or open an issue in the repository.
-
 Happy contributing!
