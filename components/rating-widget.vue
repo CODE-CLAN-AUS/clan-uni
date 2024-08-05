@@ -1,36 +1,66 @@
 <template>
-  <div class="rating-container">
-    <a-spin v-if="!canRate" :style="{ padding: '4px 70px 4px' }" />
-    <v-rating
-      v-else
-      v-model="averageRating"
-      active-color="orange-lighten-1"
-      color="orange-lighten-1"
-      density="compact"
-      hover
-      :style="{ marginLeft: '20px' }"
-    />
-    <a-tooltip placement="right">
-      <template #title>
-        <span>{{ count }} People Voted</span>
-      </template>
-      <InfoCircleFilled
-        :style="{
-          fontSize: '20px',
-          color: 'lightblue',
+  <div>
+    <a-spin v-if="!canRate" :style="{ padding: '4.8px 70px 0px' }" />
+    <template v-else>
+      <a-rate @change="upsertRating" :style="{ marginLeft: '18px' }" character="★" :value="averageRating"
+        :allow-clear="false" />
+      <a-tooltip v-if="isMobile" placement="right">
+        <template #title>
+          <span>{{ formatNumberToFixedDecimals(count) }} People Voted</span>
+        </template>
+        <InfoCircleFilled :style="{
+          fontSize: '18px',
+          color: 'LightSkyBlue',
           position: 'relative',
-          top: canRate ? '-6px' : '1.5px',
-          left: '6px',
+          top: '0.2px',
+          left: '12px',
           marginRight: '30px',
-        }"
-      />
-    </a-tooltip>
+        }" />
+      </a-tooltip>
+      <a-popover v-else placement="top">
+        <template #content class="rating-popover">
+          <a-table :columns="columns" :data-source="tableData" :pagination="false" :show-header="false" size="small">
+            <template #bodyCell="{ column, record }">
+              <template v-if="column.dataIndex === 'label'">
+                {{ record.label }}
+              </template>
+              <template v-else-if="column.dataIndex === 'percentage'">
+                <a-progress :percent="record.percentage" :show-info="false" size="small" />
+              </template>
+              <template v-else-if="column.dataIndex === 'votes'">
+                ({{ formatNumberWithCommas(record.votes) }} Votes)
+              </template>
+            </template>
+          </a-table>
+        </template>
+        <template #title>
+          <span>{{ formatNumberToFixedDecimals(averageRating) }} out of 5</span>
+        </template>
+        <InfoCircleFilled :style="{
+          fontSize: '18px',
+          color: 'LightSkyBlue',
+          position: 'relative',
+          top: '0.2px',
+          left: '12px',
+          marginRight: '30px',
+        }" />
+      </a-popover>
+    </template>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from "vue";
+import { ref, reactive, onMounted } from "vue";
 import { v4 as uuidv4 } from "uuid";
+import { useErrorHandler } from "../composables/useErrorHandler";
+import { formatNumberWithCommas, formatNumberToFixedDecimals, calculateRatings } from "../composables/useNumber";
+import { useFetch } from "nuxt/app";
+import { nextTick } from "process";
+import { Grid } from "ant-design-vue";
+import type { ColumnsType } from 'ant-design-vue/es/table';
+import type { IRatingTableRow } from "../types/IRatingTableRow";
+
+const isMobile = Grid?.useBreakpoint()?.value?.xs ?? false;
 
 const props = defineProps({
   path: {
@@ -39,12 +69,60 @@ const props = defineProps({
   },
 });
 
+const columns: ColumnsType<IRatingTableRow> = [
+  {
+    dataIndex: 'label',
+  },
+  {
+    dataIndex: 'percentage',
+    width: 200,
+  },
+  {
+    dataIndex: 'votes',
+    align: 'right',
+  }
+];
+
 const averageRating = ref(0);
 const count = ref(0);
 const fingerprint = ref("");
 const canRate = ref(false);
+const tableData: IRatingTableRow[] = reactive([
+  {
+    key: 1,
+    label: 'Excellent',
+    percentage: 0,
+    votes: 0
+  },
+  {
+    key: 2,
+    label: 'Good',
+    percentage: 0,
+    votes: 0
+  },
+  {
+    key: 3,
+    label: 'Average',
+    percentage: 0,
+    votes: 0
+  },
+  {
+    key: 4,
+    label: 'Poor',
+    percentage: 0,
+    votes: 0
+  },
+  {
+    key: 5,
+    label: 'Awful',
+    percentage: 0,
+    votes: 0
+  }
+]);
 
-watch(averageRating, async (rate: number) => {
+const upsertRating = async (rate: number) => {
+  const errorMessage = "Failed to rate this content.";
+
   canRate.value = false;
 
   const { data, error } = await useFetch("/.netlify/functions/upsertRating", {
@@ -59,17 +137,26 @@ watch(averageRating, async (rate: number) => {
     },
   });
 
-  if (error.value) {
-    console.error("Failed to submit rating:", error.value);
+  if (error && error.value) {
+    useErrorHandler(error.value, errorMessage);
+    canRate.value = true;
     return;
   }
 
-  if (data.value) {
-    await getRating();
+  if (data && data.value) {
+    try {
+      const parsedData = JSON.parse(data.value);
+      await getRating();
+    } catch (err) {
+      useErrorHandler(err, errorMessage);
+      canRate.value = true;
+    }
   }
-});
+};
 
 const getRating = async () => {
+  const errorMessage = "Failed to get ratings.";
+
   const { data, error } = await useFetch("/.netlify/functions/getRating", {
     method: "POST",
     body: JSON.stringify({
@@ -83,16 +170,24 @@ const getRating = async () => {
 
   canRate.value = true;
 
-  if (error.value) {
-    console.error("Failed to get ratings:", error.value);
+  if (error && error.value) {
+    useErrorHandler(error.value, errorMessage);
     return;
   }
 
-  if (data.value) {
-    const averageRatingValue = JSON.parse(data.value).averageRating;
-    const countValue = JSON.parse(data.value).count;
-    averageRating.value = averageRatingValue;
-    count.value = countValue;
+  if (data && data.value) {
+    try {
+      const parsed = JSON.parse(data.value);
+      averageRating.value = parsed.averageRating;
+      count.value = parsed.count;
+      const { counts, percentages } = calculateRatings(parsed.ratings);
+      for (let i = 1; i < 6; i++) {
+        tableData[i - 1].votes = counts[i];
+        tableData[i - 1].percentage = percentages[i];
+      }
+    } catch (err) {
+      useErrorHandler(err, errorMessage);
+    }
   }
 };
 
@@ -106,8 +201,9 @@ onMounted(async () => {
       localStorage.setItem("fingerprint", fingerprint.value);
     }
 
-    await getRating();
-    await getRating();
+    nextTick(async () => {
+      await getRating();
+    });
   }
 });
 </script>

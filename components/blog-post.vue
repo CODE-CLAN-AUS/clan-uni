@@ -1,35 +1,23 @@
 <template>
-  <a-card :bordered="false" class="card" :extra="timeToRead">
-    <template #title>
+  <a-card :bordered="false" :class="cardClass" :extra="cardExtra">
+    <template v-if="!noHeader" #title>
       <NuxtLink :to="articleLink" class="card-title">{{ article?.title }}</NuxtLink>
     </template>
     <template #cover>
-      <img
-        v-if="article?.cover"
-        :alt="article?.title"
-        :src="article?.cover"
-        class="card-cover"
-      />
+      <img v-if="article?.cover" :alt="article?.title" :src="article?.cover" class="card-cover" />
     </template>
-    <a-card-meta :title="article?.author" class="card-meta">
+    <a-card-meta v-if="!noAuthor" :title="article?.author" class="card-meta">
       <template #avatar>
         <a-avatar :src="avatarUrl" />
       </template>
     </a-card-meta>
-    <ContentRenderer
-      v-if="article"
-      :key="article._id"
-      :value="article"
-      :excerpt="!!showArticleLink && !!article.excerpt"
-      class="nuxt-content"
-    ></ContentRenderer>
+    <ContentRenderer v-if="article" :key="article._id" :value="article"
+      :excerpt="!!showArticleLink && !!article.excerpt" class="nuxt-content"></ContentRenderer>
     <template #actions>
       <NuxtLink v-if="showArticleLink" :to="articleLink">
         <EllipsisOutlined />
       </NuxtLink>
-      <ClientOnly v-else>
-        <rating-widget v-if="path" :path="path" />
-      </ClientOnly>
+      <rating-widget v-else-if="path" :path="path" />
     </template>
   </a-card>
 </template>
@@ -37,8 +25,8 @@
 <script setup>
 import { computed, ref } from "vue";
 import RatingWidget from "./rating-widget";
-import { generateAvatarUrl } from "~/src/helpers/avatar";
-import { calculateReadTime } from "~/src/helpers/blogPostHelper";
+import { useAvatar } from "../composables/useAvatar";
+import { calculateReadTime } from "../composables/useArticle";
 
 const props = defineProps({
   article: {
@@ -54,11 +42,19 @@ const props = defineProps({
     type: String,
     required: false,
   },
+  noHeader: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  noAuthor: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
 });
 
-const timeToRead = `${calculateReadTime(props.article?.body)} min read`;
-
-const avatarUrl = ref(generateAvatarUrl(props.article?.github));
+const avatarUrl = ref(useAvatar(props.article?.github));
 
 const showArticleLink = computed(() => {
   return props.preview && props.path;
@@ -67,10 +63,25 @@ const showArticleLink = computed(() => {
 const articleLink = computed(() => {
   return props.path ? props.path : "/";
 });
+
+const cardExtra = computed(() => {
+  return props.noHeader ? null : `${calculateReadTime(props.article?.body)} min read`;
+})
+
+const cardClass = computed(() => {
+  return { 'card': true, 'no-header-no-meta': props.noHeader && props.noAuthor };
+})
 </script>
 
 <style lang="scss" scoped>
 .card {
+  &.no-header-no-meta {
+
+    ::v-deep .ant-card-body {
+      padding-top: 0;
+    }
+  }
+
   .card-title {
     font-weight: 500;
     font-size: 125%;

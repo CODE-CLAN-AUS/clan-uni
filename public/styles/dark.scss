@@ -12,6 +12,8 @@
 
   --dark-switch-checked-background: #3E3636;
 
+  --dark-popover-background: #141414;
+
   --invisible-color: #ffffff00;
 }
 
@@ -40,7 +42,7 @@
     border-color: var(--dark-card-border-color);
     color: var(--dark-layout-foreground-color);
 
-    .ant-tree-title > a,
+    .ant-tree-title>a,
     .ant-card-head-title,
     .ant-card-head-title>a,
     .ant-card-extra,
@@ -199,7 +201,7 @@
       }
 
       .ant-tree-iconEle.ant-tree-icon__customize {
-        a > span > svg > path {
+        a>span>svg>path {
           fill: var(--dark-layout-foreground-color);
         }
       }
@@ -213,5 +215,9 @@
       background: none !important;
       color: var(--dark-layout-foreground-color) !important;
     }
+  }
+
+  div.ant-popover-inner {
+    background: var(--dark-popover-background);
   }
 }

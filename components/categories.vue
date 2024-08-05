@@ -1,21 +1,16 @@
 <template>
   <a-card title="Courses" :bordered="true" class="card">
-    <a-tree
-      v-model:selectedKeys="selectedKeys"
-      v-model:expandedKeys="expandedKeys"
-      show-line
-      show-icon
-      defaultExpandAll
-      autoExpandParent
-      :tree-data="coursesTree"
-    >
-      <template #icon="{ key }"
-        ><NuxtLink v-if="key && isLeaf(key)" :to="key"><FileOutlined /></NuxtLink
-      ></template>
+    <a-tree v-model:selectedKeys="selectedKeys" v-model:expandedKeys="expandedKeys" show-line show-icon defaultExpandAll
+      autoExpandParent :tree-data="coursesTree">
+      <template #icon="{ key }">
+        <NuxtLink v-if="key && isLeaf(key)" :to="key">
+          <FileOutlined />
+        </NuxtLink>
+      </template>
       <template #title="{ dataRef }">
         <NuxtLink v-if="dataRef" :to="dataRef.key">{{
           subpathToTitle(dataRef.title)
-        }}</NuxtLink>
+          }}</NuxtLink>
       </template>
       <template #switcherIcon="{ dataRef, defaultIcon }">
         <component :is="defaultIcon" />
@@ -27,8 +22,8 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
-import { subpathToTitle } from "~/src/helpers/blogPostHelper";
-import { useContentData } from "~/stores/contentData";
+import { subpathToTitle } from "../composables/useArticle";
+import { useContentData } from "../stores/contentData";
 
 const contentData = useContentData();
 const coursesTree = contentData.coursesTree;

@@ -1,5 +1,5 @@
 import type { ParsedContent } from '@nuxt/content';
-import type { ITreeNode } from '../interfaces/ITreeNode';
+import type { ITreeNode } from '../types/ITreeNode';
 import type { DataNode } from 'ant-design-vue/es/tree';
 
 export function createTree(allContent: ParsedContent[] | null): ITreeNode[] {
@@ -52,7 +52,7 @@ export function createFilesArray(allContent: ParsedContent[] | null): string[] {
 
 export function ITreeNodesToDataNodes(treeNodes: ITreeNode[]): DataNode[] {
   return treeNodes.map((node) => {
-    const output : DataNode = {
+    const output: DataNode = {
       title: node.title,
       key: node._path ? node._path : node._id,
     }
