@@ -53,7 +53,7 @@
 import { ref, reactive, onMounted } from "vue";
 import { v4 as uuidv4 } from "uuid";
 import { useErrorHandler } from "../composables/useErrorHandler";
-import { formatNumberWithCommas, formatNumberToFixedDecimals } from "../composables/useNumber";
+import { formatNumberWithCommas, formatNumberToFixedDecimals, calculateRatings } from "../composables/useNumber";
 import { useFetch } from "nuxt/app";
 import { nextTick } from "process";
 import { Grid } from "ant-design-vue";
@@ -180,6 +180,11 @@ const getRating = async () => {
       const parsed = JSON.parse(data.value);
       averageRating.value = parsed.averageRating;
       count.value = parsed.count;
+      const { counts, percentages } = calculateRatings(parsed.ratings);
+      for (let i = 1; i < 6; i++) {
+        tableData[i].votes = counts[i];
+        tableData[i].percentage = percentages[i];
+      }
     } catch (err) {
       useErrorHandler(err, errorMessage);
     }
