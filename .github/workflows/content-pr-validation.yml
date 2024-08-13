@@ -16,9 +16,6 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
-
       - name: Run content checks
         run: node .github/scripts/checkContent.js
         env:
