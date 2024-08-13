@@ -1,4 +1,4 @@
-const { fetch } = require('node-fetch'); // Use built-in fetch for Node.js 18+
+import fetch from 'node-fetch'; // Use node-fetch for Node.js 18+
 
 const GITHUB_API_URL = 'https://api.github.com';
 const REPO_OWNER = process.env.GITHUB_REPOSITORY.split('/')[0];
