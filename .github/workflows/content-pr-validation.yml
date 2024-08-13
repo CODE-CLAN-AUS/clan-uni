@@ -1,24 +1,25 @@
-name: Content PR Validation
+name: PR Checks
 
 on:
   pull_request:
     types: [opened, synchronize]
 
 jobs:
-  validate-content:
+  check-content:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      - name: Install Dependencies
-        run: yarn install
+      - name: Install dependencies
+        run: npm install
 
-      - name: Run Validation Script
-        run: yarn validate
+      - name: Run content checks
+        run: node .github/scripts/checkContent.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
