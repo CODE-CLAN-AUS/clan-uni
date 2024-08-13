@@ -1,5 +1,3 @@
-import { fetch } from 'node:node-fetch'; // This line is for reference; `fetch` is globally available in Node.js 18+
-
 const GITHUB_API_URL = 'https://api.github.com';
 const REPO_OWNER = process.env.GITHUB_REPOSITORY.split('/')[0];
 const REPO_NAME = process.env.GITHUB_REPOSITORY.split('/')[1];
