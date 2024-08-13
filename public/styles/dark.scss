@@ -220,4 +220,9 @@
   div.ant-popover-inner {
     background: var(--dark-popover-background);
   }
+
+  div.ant-tooltip-inner,
+  div.ant-tooltip-arrow::before {
+    background: var(--dark-popover-background);
+  }
 }
