@@ -1,14 +1,19 @@
 ---
-title: Welcome to CODE CLAN University
-author: Pouria Rabeti
+
+title: Welcome to CODE CLAN University  
+author: Pouria Rabeti  
 tags: Internal
+
 ---
+
 # Welcome to CODE CLAN University
+
 CODE CLAN University is a dynamic community forum that provides free technical training courses for software developers. Our mission is to empower individuals with the knowledge and skills they need to succeed in the tech industry. Our community is driven by a shared passion for learning and a commitment to helping one another grow. Join us today and become part of a supportive network of like-minded individuals!
 
-If you want to share an educational material that is related to programming by any means, we encourage and appreciate your contribution to this project.
+If you want to share educational material that is related to programming by any means, we encourage and appreciate your contribution to this project.
 
 ## What type of material is suitable
+
 Any educational material that is somehow related to the world of computer software or hardware.
 
 ## How to Contribute
@@ -53,28 +58,7 @@ Create a new directory or new Markdown files anywhere in the `content/` director
 
 #### Markdown Guide
 
-- Use `#` for headings.
-- Use `**bold**` or `*italic*` for emphasis.
-- Create lists using `-` or `1.` for ordered lists.
-- Embed code blocks using triple backticks (```) for syntax highlighting.
-
-Here’s an example Markdown template:
-
-```markdown
----
-title: "Your Article Title"
-description: "A brief description of your article"
-tags: ["tag1", "tag2"]
----
-
-# Your Article Title
-
-Introduction paragraph.
-
-## Subheading
-
-Your content here.
-```
+For a comprehensive guide on markdown and content authoring, please refer to our [extensive markdown/content authoring guide](/contribution-guide).
 
 ### 5. Preview Your Changes
 

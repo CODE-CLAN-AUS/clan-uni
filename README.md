@@ -43,28 +43,7 @@ Create a new directory or new Markdown files anywhere in the `content/` director
 
 #### Markdown Guide
 
-- Use `#` for headings.
-- Use `**bold**` or `*italic*` for emphasis.
-- Create lists using `-` or `1.` for ordered lists.
-- Embed code blocks using triple backticks (```) for syntax highlighting.
-
-Here’s an example Markdown template:
-
-```markdown
----
-title: "Your Article Title"
-description: "A brief description of your article"
-tags: ["tag1", "tag2"]
----
-
-# Your Article Title
-
-Introduction paragraph.
-
-## Subheading
-
-Your content here.
-```
+For a comprehensive guide on markdown and content authoring, please refer to our [extensive markdown/content authoring guide](https://github.com/CODE-CLAN-AUS/clan-uni/blob/main/content/contribution-guide/index.md).
 
 ### 5. Preview Your Changes
 
@@ -126,7 +105,5 @@ After you are satisfied with your changes in the preview deployment, our team wi
 - Respect all contributors and community members.
 
 Thank you for your contribution! Your effort helps create a valuable resource for the community.
-
-If you have any questions, feel free to reach out to us at [contact@codeclan.org](mailto:contact@codeclan.org) or open an issue in the repository.
 
 Happy contributing!
