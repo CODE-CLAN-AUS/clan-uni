@@ -6,7 +6,6 @@ export default defineNuxtConfig({
     '@ant-design-vue/nuxt',
     '@pinia/nuxt',
     '@nuxtjs/color-mode',
-    "nuxt-lazytube"
   ],
   content: {
     documentDriven: true,
@@ -15,10 +14,31 @@ export default defineNuxtConfig({
     },
     highlight: {
       langs: [
-        'bash',
+        'bat',
         'csharp',
+        'css',
+        'csv',
+        'docker',
+        'graphql',
+        'html',
+        'javascript',
+        'json',
+        'json5',
+        'jsonl',
+        'jsx',
+        'less',
+        'log',
+        'php',
+        'postcss',
+        'powershell',
+        'python',
+        'razor',
+        'regexp',
+        'sass',
+        'scss',
+        'stylus',
+        'tsx',
         'typescript',
-        'markdown',
       ],
       theme: {
         default: 'light-plus',
@@ -26,12 +46,16 @@ export default defineNuxtConfig({
       },
     },
   },
+
   colorMode: {
     classSuffix: '',
   },
+
   css: [
     'public/styles/common.scss',
     'public/styles/light.scss',
     'public/styles/dark.scss',
-  ]
+  ],
+
+  compatibilityDate: '2024-08-10'
 })

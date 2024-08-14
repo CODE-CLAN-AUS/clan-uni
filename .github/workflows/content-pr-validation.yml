@@ -1,0 +1,22 @@
+name: PR Checks
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  check-content:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Run content checks
+        run: node .github/scripts/checkContent.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

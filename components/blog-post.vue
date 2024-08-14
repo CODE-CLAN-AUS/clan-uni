@@ -6,7 +6,7 @@
     <template #cover>
       <img v-if="article?.cover" :alt="article?.title" :src="article?.cover" class="card-cover" />
     </template>
-    <a-card-meta v-if="!noAuthor" :title="article?.author" class="card-meta">
+    <a-card-meta v-if="!noAuthor" :title="authorName" class="card-meta">
       <template #avatar>
         <a-avatar :src="avatarUrl" />
       </template>
@@ -56,6 +56,10 @@ const props = defineProps({
 
 const avatarUrl = ref(useAvatar(props.article?.github));
 
+const authorName = computed(() => {
+  return props.article?.author ?? "CLAN UNI";
+})
+
 const showArticleLink = computed(() => {
   return props.preview && props.path;
 });
@@ -77,7 +81,7 @@ const cardClass = computed(() => {
 .card {
   &.no-header-no-meta {
 
-    ::v-deep .ant-card-body {
+    :deep(.ant-card-body) {
       padding-top: 0;
     }
   }

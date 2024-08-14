@@ -4,7 +4,7 @@
     <template v-else>
       <a-rate @change="upsertRating" :style="{ marginLeft: '18px' }" character="★" :value="averageRating"
         :allow-clear="false" />
-      <a-tooltip v-if="isMobile" placement="right">
+      <a-tooltip v-if="isMobile" placement="top">
         <template #title>
           <span>{{ formatNumberToFixedDecimals(count) }} People Voted</span>
         </template>
@@ -60,7 +60,8 @@ import { Grid } from "ant-design-vue";
 import type { ColumnsType } from 'ant-design-vue/es/table';
 import type { IRatingTableRow } from "../types/IRatingTableRow";
 
-const isMobile = Grid?.useBreakpoint()?.value?.xs ?? false;
+const breakpoints = Grid?.useBreakpoint();
+let isMobile = false;
 
 const props = defineProps({
   path: {
@@ -202,6 +203,7 @@ onMounted(async () => {
     }
 
     nextTick(async () => {
+      isMobile = breakpoints?.value?.xs ?? isMobile;
       await getRating();
     });
   }
