@@ -33,10 +33,10 @@ Add your content in the appropriate directory. Our content is organized using th
 
 ```
 content/
-└── course-name/
+└── course-title/
     └── index.md
-    └── lesson-one-name.md
-    └── lesson-two-name.md
+    └── lesson-one-title.md
+    └── lesson-two-title.md
 ```
 
 Create a new directory or new Markdown files anywhere in the `content/` directory.
