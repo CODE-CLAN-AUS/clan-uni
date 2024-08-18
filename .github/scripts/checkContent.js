@@ -51,7 +51,7 @@ async function postComment(body) {
 }
 
 async function markAsReadyForMerge() {
-  // This will ensure that the PR can be merged if it's currently marked as a draft
+  // Ensure the PR can be merged if it's currently marked as a draft
   const response = await fetch(`${GITHUB_API_URL}/repos/${REPO_OWNER}/${REPO_NAME}/pulls/${PR_NUMBER}`, {
     method: 'PATCH',
     headers: {
@@ -72,7 +72,7 @@ async function checkPR() {
     if (pr.user.login === YOUR_USERNAME) {
       console.log('Developer PR detected. Posting comment and ensuring mergeability.');
 
-      const comment = 'This is a developer PR created by @iMasoud. Content checks are skipped, and the PR is OK to merge.';
+      const comment = '✅ This is a developer PR created by @iMasoud. Content checks are skipped, and the PR is OK to merge.';
       await postComment(comment);
 
       // Ensure the PR can be merged
@@ -88,12 +88,12 @@ async function checkPR() {
       const filePath = file.filename;
 
       if (!filePath.startsWith('content/') && !filePath.startsWith('public/media/')) {
-        violations.push(`File ${filePath} is outside of allowed directories.`);
+        violations.push(` * File \`${filePath}\` is outside the allowed directories.`);
         continue;
       }
 
       if (filePath.startsWith('content/') && !filePath.endsWith('.md')) {
-        violations.push(`File ${filePath} in content directory must have .md extension.`);
+        violations.push(` * File \`${filePath}\` in the content directory must have a \`.md\` extension.`);
         continue;
       }
 
@@ -102,7 +102,7 @@ async function checkPR() {
         const frontMatterMatch = fileContent.match(/^---\n([\s\S]*?)\n---/);
 
         if (!frontMatterMatch) {
-          violations.push(`File ${filePath} is missing front matter.`);
+          violations.push(` * File \`${filePath}\` is missing front matter.`);
           continue;
         }
 
@@ -114,32 +114,32 @@ async function checkPR() {
         }, {});
 
         if (!frontMatterFields.title) {
-          violations.push(`File ${filePath} missing 'title' in front matter.`);
+          violations.push(` * File \`${filePath}\` is missing \`title\` in the front matter.`);
         }
         if (!frontMatterFields.description) {
-          violations.push(`File ${filePath} missing 'description' in front matter.`);
+          violations.push(` * File \`${filePath}\` is missing \`description\` in the front matter.`);
         }
         if (frontMatterFields.draft && frontMatterFields.draft !== 'false') {
-          violations.push(`File ${filePath} has 'draft' set to ${frontMatterFields.draft}. It should be 'false' or not present.`);
+          violations.push(` * File \`${filePath}\` has \`draft\` set to \`${frontMatterFields.draft}\`. It should be \`false\` or not present.`);
         }
         if (frontMatterFields.navigation && frontMatterFields.navigation !== 'true') {
-          violations.push(`File ${filePath} has 'navigation' set to ${frontMatterFields.navigation}. It should be 'true' or not present.`);
+          violations.push(` * File \`${filePath}\` has \`navigation\` set to \`${frontMatterFields.navigation}\`. It should be \`true\` or not present.`);
         }
         if (frontMatterFields.head) {
-          violations.push(`File ${filePath} should not have 'head' in front matter.`);
+          violations.push(` * File \`${filePath}\` should not have \`head\` in the front matter.`);
         }
         if (frontMatterFields.layout) {
-          violations.push(`File ${filePath} should not have 'layout' in front matter.`);
+          violations.push(` * File \`${filePath}\` should not have \`layout\` in the front matter.`);
         }
       }
     }
 
-    let comment = 'Content checks:\n';
+    let comment = '📝 Content check completed.\n';
     if (violations.length > 0) {
-      comment += violations.join('\n');
+      comment += '⚠️ Please fix the following violations:\n' + violations.join('\n');
       await postComment(comment);
     } else {
-      comment += 'Content looks good!';
+      comment += '✅ Content looks good!';
       await postComment(comment);
     }
   } catch (error) {
