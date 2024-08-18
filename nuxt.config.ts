@@ -14,6 +14,8 @@ export default defineNuxtConfig({
     },
     highlight: {
       langs: [
+        'angular-html',
+        'angular-ts',
         'bat',
         'csharp',
         'css',
@@ -21,6 +23,7 @@ export default defineNuxtConfig({
         'docker',
         'graphql',
         'html',
+        'html-derivative',
         'javascript',
         'json',
         'json5',
@@ -28,6 +31,7 @@ export default defineNuxtConfig({
         'jsx',
         'less',
         'log',
+        'markdown',
         'php',
         'postcss',
         'powershell',
@@ -39,6 +43,8 @@ export default defineNuxtConfig({
         'stylus',
         'tsx',
         'typescript',
+        'vue',
+        'vue-html',
       ],
       theme: {
         default: 'light-plus',
