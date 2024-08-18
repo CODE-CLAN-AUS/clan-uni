@@ -1,6 +1,6 @@
 import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { Client, query as q } from 'faunadb';
-import type IRating from "../../types/IRating"
+import type IRating from "../../types/IRating";
 
 const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   const data: IRating = JSON.parse(event.body || '{}');
@@ -29,15 +29,16 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
             q.Lambda('X', q.Var('X'))
           )),
           totalRatings: q.Sum(q.Var('ratings')),
-          count: q.Count(q.Var('ratings'))
-        },
-        {
-          count: q.Var('count'),
+          count: q.Count(q.Var('ratings')),
           averageRating: q.If(
             q.Equals(q.Var('count'), 0),
             0,
-            q.Divide(q.Var('totalRatings'), q.Var('count'))
-          ),
+            q.ToDouble(q.Divide(q.Var('totalRatings'), q.Var('count')))
+          )
+        },
+        {
+          count: q.Var('count'),
+          averageRating: q.Var('averageRating'),
           ratings: q.Var('ratings'),
           document: q.Var('match')
         }
