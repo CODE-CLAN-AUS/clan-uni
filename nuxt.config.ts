@@ -1,11 +1,17 @@
 // https://nuxt.com/docs/guide/directory-structure/nuxt.config#nuxt-config-file
 export default defineNuxtConfig({
+  site: {
+    url: 'https://uni.codeclan.org',
+    name: 'CLAN UNI'
+  },
   modules: [
     'nuxt-content-assets',
     '@nuxt/content',
     '@ant-design-vue/nuxt',
     '@pinia/nuxt',
     '@nuxtjs/color-mode',
+    "@nuxtjs/sitemap",
+    "@nuxtjs/robots"
   ],
   content: {
     documentDriven: true,
@@ -14,6 +20,8 @@ export default defineNuxtConfig({
     },
     highlight: {
       langs: [
+        'angular-html',
+        'angular-ts',
         'bat',
         'csharp',
         'css',
@@ -21,6 +29,7 @@ export default defineNuxtConfig({
         'docker',
         'graphql',
         'html',
+        'html-derivative',
         'javascript',
         'json',
         'json5',
@@ -28,6 +37,7 @@ export default defineNuxtConfig({
         'jsx',
         'less',
         'log',
+        'markdown',
         'php',
         'postcss',
         'powershell',
@@ -39,6 +49,8 @@ export default defineNuxtConfig({
         'stylus',
         'tsx',
         'typescript',
+        'vue',
+        'vue-html',
       ],
       theme: {
         default: 'light-plus',
