@@ -1,11 +1,16 @@
 // https://nuxt.com/docs/guide/directory-structure/nuxt.config#nuxt-config-file
 export default defineNuxtConfig({
+  site: {
+    url: 'https://uni.codeclan.org',
+    name: 'CLAN UNI'
+  },
   modules: [
     'nuxt-content-assets',
     '@nuxt/content',
     '@ant-design-vue/nuxt',
     '@pinia/nuxt',
     '@nuxtjs/color-mode',
+    "@nuxtjs/sitemap"
   ],
   content: {
     documentDriven: true,
