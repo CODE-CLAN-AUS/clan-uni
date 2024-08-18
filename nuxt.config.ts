@@ -10,7 +10,8 @@ export default defineNuxtConfig({
     '@ant-design-vue/nuxt',
     '@pinia/nuxt',
     '@nuxtjs/color-mode',
-    "@nuxtjs/sitemap"
+    "@nuxtjs/sitemap",
+    "@nuxtjs/robots"
   ],
   content: {
     documentDriven: true,

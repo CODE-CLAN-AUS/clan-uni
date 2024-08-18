@@ -1091,6 +1091,23 @@
     unist-util-visit "^5.0.0"
     unwasm "^0.3.9"
 
+"@nuxtjs/robots@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/robots/-/robots-4.1.0.tgz#9d63ffc93f22e56ef9e23d3be7ad00460a5c93af"
+  integrity sha512-KX1cDpYdYtHwR5DzArxFD1r695QCs9/i0jXgbXTky9AUW2Vg0Mr7zG7f+K0gtRzhab88tGWateVWCVuKCswFhQ==
+  dependencies:
+    "@nuxt/devtools-kit" "^1.3.9"
+    "@nuxt/kit" "^3.12.4"
+    consola "^3.2.3"
+    defu "^6.1.4"
+    nuxt-site-config "^2.2.15"
+    nuxt-site-config-kit "^2.2.15"
+    pathe "^1.1.2"
+    pkg-types "^1.1.3"
+    sirv "^2.0.4"
+    std-env "^3.7.0"
+    ufo "^1.5.4"
+
 "@nuxtjs/sitemap@^6.0.0-beta.2":
   version "6.0.0-beta.2"
   resolved "https://registry.yarnpkg.com/@nuxtjs/sitemap/-/sitemap-6.0.0-beta.2.tgz#6c18bf816b2eeac525641159350aeac686bce034"
