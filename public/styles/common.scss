@@ -9,6 +9,8 @@
   --code-border-radius: 4px;
 
   --code-box-padding: 16px;
+
+  --invisible-color: #ffffff00;
 }
 
 body {
@@ -81,7 +83,16 @@ body {
           pre.shiki {
             padding: var(--code-box-padding);
             border-radius: var(--code-border-radius);
+            white-space: pre;
+            overflow-x: auto;
+            max-width: 100%;
+            box-sizing: border-box;
           }
+
+          code {
+            display: block;
+          }
+
         }
 
         .card-cover {
