@@ -3,11 +3,12 @@ const REPO_OWNER = process.env.GITHUB_REPOSITORY.split('/')[0];
 const REPO_NAME = process.env.GITHUB_REPOSITORY.split('/')[1];
 const PR_NUMBER = process.env.GITHUB_REF.split('/')[2];
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const YOUR_USERNAME = 'iMasoud';
 
 async function fetchPR() {
   const response = await fetch(`${GITHUB_API_URL}/repos/${REPO_OWNER}/${REPO_NAME}/pulls/${PR_NUMBER}`, {
     headers: {
-      'Authorization': `token ${GITHUB_TOKEN}`,
+      'Authorization': `Bearer ${GITHUB_TOKEN}`,
       'Accept': 'application/vnd.github.v3+json'
     }
   });
@@ -18,7 +19,7 @@ async function fetchPR() {
 async function fetchFiles() {
   const response = await fetch(`${GITHUB_API_URL}/repos/${REPO_OWNER}/${REPO_NAME}/pulls/${PR_NUMBER}/files`, {
     headers: {
-      'Authorization': `token ${GITHUB_TOKEN}`,
+      'Authorization': `Bearer ${GITHUB_TOKEN}`,
       'Accept': 'application/vnd.github.v3+json'
     }
   });
@@ -29,7 +30,7 @@ async function fetchFiles() {
 async function fetchFileContent(url) {
   const response = await fetch(url, {
     headers: {
-      'Authorization': `token ${GITHUB_TOKEN}`
+      'Authorization': `Bearer ${GITHUB_TOKEN}`
     }
   });
   if (!response.ok) throw new Error(`Failed to fetch file content: ${response.statusText}`);
@@ -40,7 +41,7 @@ async function postComment(body) {
   const response = await fetch(`${GITHUB_API_URL}/repos/${REPO_OWNER}/${REPO_NAME}/issues/${PR_NUMBER}/comments`, {
     method: 'POST',
     headers: {
-      'Authorization': `token ${GITHUB_TOKEN}`,
+      'Authorization': `Bearer ${GITHUB_TOKEN}`,
       'Accept': 'application/vnd.github.v3+json',
       'Content-Type': 'application/json'
     },
@@ -49,9 +50,37 @@ async function postComment(body) {
   if (!response.ok) throw new Error(`Failed to post comment: ${response.statusText}`);
 }
 
+async function markAsReadyForMerge() {
+  // This will ensure that the PR can be merged if it's currently marked as a draft
+  const response = await fetch(`${GITHUB_API_URL}/repos/${REPO_OWNER}/${REPO_NAME}/pulls/${PR_NUMBER}`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${GITHUB_TOKEN}`,
+      'Accept': 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ draft: false })
+  });
+  if (!response.ok) throw new Error(`Failed to update PR: ${response.statusText}`);
+}
+
 async function checkPR() {
   try {
     const pr = await fetchPR();
+
+    // Skip content checks and post a comment if the PR is created by the developer
+    if (pr.user.login === YOUR_USERNAME) {
+      console.log('Developer PR detected. Posting comment and ensuring mergeability.');
+
+      const comment = 'This is a developer PR created by @iMasoud. Content checks are skipped, and the PR is OK to merge.';
+      await postComment(comment);
+
+      // Ensure the PR can be merged
+      await markAsReadyForMerge();
+
+      return;
+    }
+
     const files = await fetchFiles();
     let violations = [];
 
@@ -109,15 +138,6 @@ async function checkPR() {
     if (violations.length > 0) {
       comment += violations.join('\n');
       await postComment(comment);
-      await fetch(`${GITHUB_API_URL}/repos/${REPO_OWNER}/${REPO_NAME}/pulls/${PR_NUMBER}`, {
-        method: 'PATCH',
-        headers: {
-          'Authorization': `token ${GITHUB_TOKEN}`,
-          'Accept': 'application/vnd.github.v3+json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ draft: true })
-      });
     } else {
       comment += 'Content looks good!';
       await postComment(comment);
