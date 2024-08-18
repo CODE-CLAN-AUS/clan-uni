@@ -33,7 +33,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
           averageRating: q.If(
             q.Equals(q.Var('count'), 0),
             0,
-            q.ToDouble(q.Divide(q.Var('totalRatings'), q.Var('count')))
+            q.Divide(q.ToDouble(q.Var('totalRatings')), q.ToDouble(q.Var('count')))
           )
         },
         {
