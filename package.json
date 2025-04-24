@@ -8,21 +8,22 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
-    "@ant-design-vue/nuxt": "^1.4.2",
-    "@ant-design/icons-vue": "^7.0.1",
+    "@ant-design-vue/nuxt": "1.4.6",
     "@nuxt/content": "^2.12.1",
+    "@nuxt/image": "^1.10.0",
     "@nuxtjs/color-mode": "^3.4.1",
     "@nuxtjs/robots": "^4.1.0",
     "@nuxtjs/sitemap": "^6.0.0-beta.2",
+    "ant-design-vue": ">=4",
     "nuxt": "^3.12.4",
     "sass": "^1.77.4"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^7.0.1",
     "@netlify/functions": "^2.8.1",
     "@octokit/rest": "^21.0.1",
     "@pinia/nuxt": "^0.5.1",
     "@types/node": "^20.14.13",
-    "ant-design-vue": "^4.2.3",
     "faunadb": "^4.8.0",
     "nuxt-content-assets": "^1.4.4",
     "pinia": "^2.1.7",

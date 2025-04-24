@@ -11,7 +11,8 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxtjs/color-mode',
     "@nuxtjs/sitemap",
-    "@nuxtjs/robots"
+    "@nuxtjs/robots",
+    "@nuxt/image"
   ],
   content: {
     documentDriven: true,
