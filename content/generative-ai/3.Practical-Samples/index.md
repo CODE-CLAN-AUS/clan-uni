@@ -10,6 +10,7 @@ See all the concepts you've learned in action in these real-world and practical 
 - Understand how Agents work in complex scenarios.
 
 ## Included samples
+
 - [Canonical Generative AI Samples](#canonical-generative-ai-samples)
   - [What you'll achieve](#what-youll-achieve)
   - [Included samples](#included-samples)
@@ -22,8 +23,7 @@ See all the concepts you've learned in action in these real-world and practical 
     - [Additional resources](#additional-resources)
     - [Next steps](#next-steps)
 
-
-[![overall explainer video](./images/LIM_GAN_09_thumb_w480.png)](https://aka.ms/genainnet/videos/lesson4-overview)
+[![overall explainer video](content/generative-ai/images/LIM_GAN_09_thumb_w480.png)](https://aka.ms/genainnet/videos/lesson4-overview)
 
 _⬆️Click the image to watch the video⬆️_
 
@@ -37,7 +37,7 @@ In the first demo, we show how to use the Semantic Kernel to enhance the search 
 
 ### eShopLite with semantic search
 
-[![eShop Semantic Search explainer video](./images/LIM_GAN_10_thumb_w480.png)](https://aka.ms/genainnet/videos/lesson4-eshoplite-semanticsearch)
+[![eShop Semantic Search explainer video](content/generative-ai/images/LIM_GAN_10_thumb_w480.png)](https://aka.ms/genainnet/videos/lesson4-eshoplite-semanticsearch)
 
 _⬆️Click the image to watch the video⬆️_
 
@@ -47,11 +47,11 @@ For example, if a user searches for "do you have something for cooking", the sea
 
 > 🧑‍💻**Sample**: Check out the [eShopLite semantic search sample](https://aka.ms/netaieshoplitesemanticsearch)
 
-![Image demonstrating the search capabilities in eShopLite](./images/search-eshoplite.png)
+![Image demonstrating the search capabilities in eShopLite](content/generative-ai/images/search-eshoplite.png)
 
 Semantic search can help users find the products they need more easily, leading to a better shopping experience and increased sales, to implement this feature, we need to have a vector store with the products, a search index, and a language model. The [.NET Aspire](https://learn.microsoft.com/dotnet/aspire/get-started/aspire-overview) tooling helps to coordinate all the processes in the backend.
 
-![Image demonstrating the .NET Aspire Dashboard](./images/aspire-dashboard.png)
+![Image demonstrating the .NET Aspire Dashboard](content/generative-ai/images/aspire-dashboard.png)
 
 In the .NET Aspire dashboard, we can see the products, SQL, and store containers, which can interact with the language model. Looking deeper into the Aspire App Host, we have the following:
 
@@ -222,11 +222,11 @@ Helping the user find the products they need more easily, leading to a better sh
 
 Moreover, as generative AI evolves, we need some telemetry and monitoring to understand the user's behavior and improve the search engine, this is where Azure Application Insights and .NET Aspire come in.
 
-![Image demonstrating the .NET Aspire tracing capabilities](./images/aspire-tracing-eshoplite.png)
+![Image demonstrating the .NET Aspire tracing capabilities](content/generative-ai/images/aspire-tracing-eshoplite.png)
 
 .NET Aspire provides a powerful set of tools to monitor and trace the application's behavior, including the user's interactions with the search engine, backend services, and the AI models. The tracing capabilities can help us understand possible bottlenecks, errors, and performance issues, allowing us to optimize the application and provide a better user experience.
 
-![Image demonstrating the Azure Application Insights in eShopLite](./images/app-insights-eshoplite.png)
+![Image demonstrating the Azure Application Insights in eShopLite](content/generative-ai/images/app-insights-eshoplite.png)
 
 As telemetry is essential to understand the user's behavior and improve services, we introduce Azure Application Insights to monitor the application's performance and user interactions.
 
@@ -246,7 +246,7 @@ It also provides a more scalable and reliable search engine that can handle larg
 
 ### eShopLite with realtime audio
 
-[![eShop with real-time audio explainer video](./images/LIM_GAN_13_thumb_w480.png)](https://aka.ms/genainnet/videos/lesson4-eshoplite-realtimeaudio)
+[![eShop with real-time audio explainer video](content/generative-ai/images/LIM_GAN_13_thumb_w480.png)](https://aka.ms/genainnet/videos/lesson4-eshoplite-realtimeaudio)
 
 _⬆️Click the image to watch the video⬆️_
 
@@ -254,16 +254,16 @@ In eShopLite with real-time audio, we use the real-time audio capabilities of GP
 
 > 🧑‍💻**Sample**: Check out the [eShopLite semantic search sample](https://aka.ms/netaieshopliterealtimechat)
 
-![Image demonstrating the Realtime Analysis in eShopLite](./images/realtime-analysis-eshoplite.gif)
+![Image demonstrating the Realtime Analysis in eShopLite](content/generative-ai/images/realtime-analysis-eshoplite.gif)
 
 To implement this feature, we need to implement new features to create the endpoints for the Realtime Analysis, it can be found on the `StoreRealtime\ConversationManager.cs` implementation for real-time analysis.
 
 ```csharp
 public async Task RunAsync(
-    Stream audioInput, 
-    Speaker audioOutput, 
-    Func<string, Task> addMessageAsync, 
-    Func<string, bool, Task> addChatMessageAsync, 
+    Stream audioInput,
+    Speaker audioOutput,
+    Func<string, Task> addMessageAsync,
+    Func<string, bool, Task> addChatMessageAsync,
     CancellationToken cancellationToken)
 {
     // Define the initial prompt for the assistant
@@ -325,7 +325,7 @@ Each tool is added to the session options, and the conversation session is start
 
 ## Creative Writer Agent
 
-[![Creative Writing Agent explainer video](./images/LIM_GAN_12_thumb_w480.png)](https://aka.ms/genainnet/videos/lesson4-creative-writer-agents)
+[![Creative Writing Agent explainer video](content/generative-ai/images/LIM_GAN_12_thumb_w480.png)](https://aka.ms/genainnet/videos/lesson4-creative-writer-agents)
 
 _⬆️Click the image to watch the video⬆️_
 
@@ -333,7 +333,7 @@ Agents are a big topic in the current AI landscape, and to demonstrate their cap
 
 > 🧑‍💻**Sample**: Check out the [Creative Writing Agent sample code](https://aka.ms/netaicreativewriter)
 
-![Image demonstrating the Creative Writer Agent](./images/creative-writer-agent.png)
+![Image demonstrating the Creative Writer Agent](content/generative-ai/images/creative-writer-agent.png)
 
 This solution centers on four dedicated modules that combine to generate high-quality content:
 
@@ -344,7 +344,7 @@ This solution centers on four dedicated modules that combine to generate high-qu
 
 The workflow integrates relevant data, effective messaging, and review, being orchestrated by Semantic Kernel, Microsoft AI Extension, and .NET Aspire.
 
-![Image demonstrating the Creative Writer Agent architecture](./images/creative-writer-agent-architecture.png)
+![Image demonstrating the Creative Writer Agent architecture](content/generative-ai/images/creative-writer-agent-architecture.png)
 
 Understanding how the components interact with each other can be a reference for creating your own Agentic applications, take a look at the code below to understand how the components interact with each other, first look at the ChatController.cs call to the Creative Writer:
 
@@ -416,12 +416,12 @@ ChatCompletionAgent marketingAgent = new(ReadFileForPromptTemplateConfig("./Agen
 
 // Invoke the Researcher Agent asynchronously with the provided research context.
 await foreach (ChatMessageContent response in researcherAgent.InvokeAsync(
-    new object[] { }, 
+    new object[] { },
     new Dictionary<string, string> { { "research_context", createWriterRequest.Research } }))
 {
     // Aggregate the research results for further processing or display.
     sbResearchResults.AppendLine(response.Content);
-    
+
     yield return new AIChatCompletionDelta(Delta: new AIChatMessageDelta
     {
         Role = AIChatRole.Assistant,
@@ -439,7 +439,7 @@ await foreach (ChatMessageContent response in marketingAgent.InvokeAsync(
 {
     // Consolidate the product-related results for use in marketing strategies or user feedback.
     sbProductResults.AppendLine(response.Content);
-    
+
     yield return new AIChatCompletionDelta(Delta: new AIChatMessageDelta
     {
         Role = AIChatRole.Assistant,
@@ -448,23 +448,24 @@ await foreach (ChatMessageContent response in marketingAgent.InvokeAsync(
     });
 }
 ```
+
 Now, we initialize and configure the `Writer` and `Editor` agents. Look at the code:
 
 ```csharp
 // Initialize the Writer Agent with its specific prompt configuration
 ChatCompletionAgent writerAgent = new(ReadFileForPromptTemplateConfig("./Agents/Prompts/writer.yaml"))
 {
-    Name = WriterName, 
+    Name = WriterName,
     Kernel = kernel, /
-    Arguments = new Dictionary<string, string>(), 
-    LoggerFactory = kernel.LoggerFactory 
+    Arguments = new Dictionary<string, string>(),
+    LoggerFactory = kernel.LoggerFactory
 };
 
 // Initialize the Editor Agent with its specific prompt configuration
 ChatCompletionAgent editorAgent = new(ReadFileForPromptTemplateConfig("./Agents/Prompts/editor.yaml"))
 {
-    Name = EditorName, 
-    Kernel = kernel, 
+    Name = EditorName,
+    Kernel = kernel,
     LoggerFactory = kernel.LoggerFactory
 };
 
@@ -482,8 +483,8 @@ AgentGroupChat chat = new(writerAgent, editorAgent)
     ExecutionSettings = new AgentGroupChatSettings
     {
         // Define the strategy for selecting which agent interacts next
-        SelectionStrategy = new SequentialSelectionStrategy() 
-        { 
+        SelectionStrategy = new SequentialSelectionStrategy()
+        {
             InitialAgent = writerAgent // Start the conversation with the Writer Agent
         },
         // Define the termination condition for the agent interactions, in this case, the Editor Agent will terminate the conversation
@@ -494,9 +495,9 @@ AgentGroupChat chat = new(writerAgent, editorAgent)
 
 In .NET Aspire, we notice how the components are orchestrated to create a seamless experience for the user. The tracing feature allows us to monitor the interactions between the agents, and the telemetry feature provides insights into the user's behavior and the performance of the AI models.
 
-![Image demonstrating the .NET Aspire tracing capabilities](./images/aspire-tracing-creative-writer.png)
+![Image demonstrating the .NET Aspire tracing capabilities](content/generative-ai/images/aspire-tracing-creative-writer.png)
 
-![Image demonstrating the .NET Aspire telemetry capabilities](./images/aspire-telemetry-creative-writer.png)
+![Image demonstrating the .NET Aspire telemetry capabilities](content/generative-ai/images/aspire-telemetry-creative-writer.png)
 
 > 🧑‍💻**Sample**: Check out the [Creative Writing Agent sample code](https://aka.ms/netaicreativewriter)
 

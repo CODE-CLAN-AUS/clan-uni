@@ -1,3 +1,11 @@
+---
+title: Generative AI - Getting Started with AI Development Tools
+author: Microsoft
+github: microsoft
+tags: generative-ai, ai, microsoft
+cover: /media/generative-ai/generative-ai-cover.jpg
+---
+
 # Getting Started with AI Development Tools
 
 Refresh your generative AI knowledge and understand the .NET tooling available to help you to develop generative AI applications.
