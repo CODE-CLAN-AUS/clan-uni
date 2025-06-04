@@ -1,5 +1,5 @@
 <template>
-  <a-switch :checked="isDarkMode" @change="$emit('change:isDarkMode', $event)">
+  <a-switch class="them-switch" :checked="isDarkMode" @change="$emit('change:isDarkMode', $event)">
     >
     <template #checkedChildren>
       <svg
@@ -35,3 +35,10 @@ defineProps<{
   isDarkMode: any;
 }>();
 </script>
+<style >
+:root{
+  .ant-switch-inner-unchecked{
+    margin-top: -17px !important;
+  }
+}
+</style>

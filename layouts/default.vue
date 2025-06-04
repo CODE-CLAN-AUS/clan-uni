@@ -5,7 +5,7 @@
     }"
   >
     <div id="root">
-      <header>
+      <header class="h-32">
         <div class="logo">
           <NuxtLink to="/">
             <Logo />
@@ -70,5 +70,5 @@ watch(isDarkMode, (newValue) => {
 </script>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+  @import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 </style>

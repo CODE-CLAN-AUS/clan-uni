@@ -8,28 +8,40 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
-    "@ant-design-vue/nuxt": "1.4.6",
-    "@nuxt/content": "^2.12.1",
+    "@ant-design-vue/nuxt": "^1.4.6",
+    "@nuxt/content": "^3.5.1",
     "@nuxt/image": "^1.10.0",
     "@nuxtjs/color-mode": "^3.4.1",
     "@nuxtjs/robots": "^4.1.0",
     "@nuxtjs/sitemap": "^6.0.0-beta.2",
+    "@tailwindcss/typography": "^0.5.16",
     "ant-design-vue": ">=4",
-    "nuxt": "^3.12.4",
-    "sass": "^1.77.4"
+    "nuxt": "^3.17.5",
+    "sass": "^1.77.4",
+    "shadcn-nuxt": "^2.2.0"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^7.0.1",
     "@netlify/functions": "^2.8.1",
     "@octokit/rest": "^21.0.1",
     "@pinia/nuxt": "^0.5.1",
+    "@tailwindcss/vite": "^4.1.8",
     "@types/node": "^20.14.13",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "faunadb": "^4.8.0",
-    "nuxt-content-assets": "^1.4.4",
+    "lucide-vue-next": "^0.513.0",
     "pinia": "^2.1.7",
+    "reka-ui": "^2.3.0",
+    "tailwind-merge": "^3.3.0",
+    "tailwindcss": "^4.1.8",
+    "tw-animate-css": "^1.3.3",
     "typescript": "5.5.4",
     "uuid": "^10.0.0",
     "vue3-youtube": "^0.1.9"
+  },
+  "imports": {
+    "#content/server": "./"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

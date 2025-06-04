@@ -1,14 +1,15 @@
-import type { ParsedContent } from '@nuxt/content';
+import type { ParsedContentv2 } from '@nuxt/content';
 import type { ITreeNode } from '../types/ITreeNode';
 import type { DataNode } from 'ant-design-vue/es/tree';
+import type { ContentItem } from "../types/contentItem";
 
-export function createTree(allContent: ParsedContent[] | null): ITreeNode[] {
+export function createTree(allContent: ContentItem[] | null): ITreeNode[] {
   if (!allContent) {
     return [] as ITreeNode[];
   }
 
   const tree: ITreeNode[] = []
-  const allPaths: string[] = allContent.map(x => x._path).filter(x => !!x) as string[]
+  const allPaths: string[] = allContent.map(x => x.path).filter(x => !!x) as string[]
 
   allPaths.forEach((path) => {
     const pathParts = path.split('/').filter((part) => part !== '') // Split path into parts
@@ -18,7 +19,6 @@ export function createTree(allContent: ParsedContent[] | null): ITreeNode[] {
 
     pathParts.forEach((part) => {
       currentPath += `/${part}`
-
       // Check if current path exists in the tree
       const existingNode = currentNode.find((node: ITreeNode) => node._path === currentPath)
 
@@ -42,18 +42,18 @@ export function createTree(allContent: ParsedContent[] | null): ITreeNode[] {
   return tree
 }
 
-export function createFilesArray(allContent: ParsedContent[] | null): string[] {
+export function createFilesArray(allContent: ContentItem[] | null): string[] {
   if (!allContent) {
     return [] as string[];
   }
 
-  return allContent.map(x => x._path).filter(x => !!x) as string[]
+  return allContent.map(x => x.path).filter(x => !!x) as string[]
 }
 
 export function ITreeNodesToDataNodes(treeNodes: ITreeNode[]): DataNode[] {
   return treeNodes.map((node) => {
     const output: DataNode = {
-      title: node.title,
+      title: node['title'],
       key: node._path ? node._path : node._id,
     }
 

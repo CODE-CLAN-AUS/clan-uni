@@ -1,17 +1,20 @@
 import { defineStore } from 'pinia';
 import { createFilesArray, createTree, ITreeNodesToDataNodes } from '../composables/useTree';
-import type { ParsedContent } from '@nuxt/content';
 import type { ITreeNode } from '../types/ITreeNode';
 import type { DataNode } from 'ant-design-vue/es/tree';
+import type { ContentItem } from "../types/contentItem";
 
 export const useContentData = defineStore('contentData', {
   state: () => ({
     coursesTree: [] as DataNode[],
     treeData: [] as ITreeNode[],
     filesArray: [] as string[],
+    contents: [] as ContentItem[],
   }),
   actions: {
-    set(allContent: ParsedContent[] | null) {
+    set(allContent: ContentItem[] | null) {
+
+      this.contentns = allContent || [];
       const treeData = createTree(allContent)
       this.filesArray = createFilesArray(allContent)
       this.coursesTree = ITreeNodesToDataNodes(treeData)
