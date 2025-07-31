@@ -14,7 +14,7 @@ export const useContentData = defineStore('contentData', {
   actions: {
     set(allContent: ContentItem[] | null) {
 
-      this.contentns = allContent || [];
+      this.contents = allContent || [];
       const treeData = createTree(allContent)
       this.filesArray = createFilesArray(allContent)
       this.coursesTree = ITreeNodesToDataNodes(treeData)
