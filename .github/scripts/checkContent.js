@@ -3,7 +3,7 @@ const REPO_OWNER = process.env.GITHUB_REPOSITORY.split('/')[0];
 const REPO_NAME = process.env.GITHUB_REPOSITORY.split('/')[1];
 const PR_NUMBER = process.env.GITHUB_REF.split('/')[2];
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const YOUR_USERNAME = 'iMasoud';
+const DEVELOPER_USERNAMES = ['iMasoud', 'mohsen2014'];
 
 async function fetchPR() {
   const response = await fetch(`${GITHUB_API_URL}/repos/${REPO_OWNER}/${REPO_NAME}/pulls/${PR_NUMBER}`, {
@@ -68,11 +68,11 @@ async function checkPR() {
   try {
     const pr = await fetchPR();
 
-    // Skip content checks and post a comment if the PR is created by the developer
-    if (pr.user.login === YOUR_USERNAME) {
-      console.log('Developer PR detected. Posting comment and ensuring mergeability.');
+    // Skip content checks and post a comment if the PR is created by a developer
+    if (DEVELOPER_USERNAMES.includes(pr.user.login)) {
+      console.log(`Developer PR detected from @${pr.user.login}. Posting comment and ensuring mergeability.`);
 
-      const comment = '✅ This is a developer PR created by @iMasoud. Content checks are skipped, and the PR is OK to merge.';
+      const comment = `✅ This is a developer PR created by @${pr.user.login}. Content checks are skipped, and the PR is OK to merge.`;
       await postComment(comment);
 
       // Ensure the PR can be merged
