@@ -16,12 +16,13 @@
 
 <script setup>
 import { useContentData } from "../stores/contentData";
-import { useRoute } from "vue-router";
 
-const { treeData, filesArray } = useContentData();
-const content = useContent();
-const { page } = content;
 const route = useRoute();
+const { treeData, filesArray } = useContentData();
+const { data: content } = await useAsyncData('page-' + route.path, () => {
+  return queryCollection('content').path(route.path).first()
+})
+const  page  = content;
 
 const currentPath = route.path;
 const isIndex = currentPath === "/";

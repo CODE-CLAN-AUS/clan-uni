@@ -1,0 +1,30 @@
+   trigger:
+   - main
+
+   pool:
+     vmImage: 'ubuntu-latest'
+
+   steps:
+   - task: UsePythonVersion@0
+     inputs:
+       versionSpec: '3.x'
+       addToPath: true
+
+   - script: |
+       python -m pip install --upgrade pip
+       pip install -r requirements.txt
+     displayName: 'Install dependencies'
+
+   - script: |
+       python -m unittest discover -s tests
+     displayName: 'Run tests'
+
+   - task: Docker@2
+     inputs:
+       containerRegistry: '$(dockerRegistryServiceConnection)'
+       repository: 'my_project'
+       command: 'buildAndPush'
+       Dockerfile: '**/Dockerfile'
+       tags: |
+         $(Build.BuildId)
+   

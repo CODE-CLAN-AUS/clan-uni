@@ -3,7 +3,7 @@ title: Markdown Guide for Contributors
 description: A markdown and content authoring guide for people who want to contribute to CLAN UNI!
 tags: ["markdown", "CLAN UNI", "Intenral"]
 author: Masoud Alemi
-github: iMasoud
+github: iMasoud 
 ---
 
 ## 1. Front-matter

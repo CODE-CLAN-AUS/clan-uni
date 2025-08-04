@@ -1,7 +1,14 @@
 <template>
   <a-card title="Courses" :bordered="true" class="card">
-    <a-tree v-model:selectedKeys="selectedKeys" v-model:expandedKeys="expandedKeys" show-line show-icon defaultExpandAll
-      autoExpandParent :tree-data="coursesTree">
+    <a-tree
+      v-model:selectedKeys="selectedKeys"
+      v-model:expandedKeys="expandedKeys"
+      show-line
+      show-icon
+      defaultExpandAll
+      autoExpandParent
+      :tree-data="coursesTree"
+    >
       <template #icon="{ key }">
         <NuxtLink v-if="key && isLeaf(key)" :to="key">
           <FileOutlined />
@@ -10,7 +17,7 @@
       <template #title="{ dataRef }">
         <NuxtLink v-if="dataRef" :to="dataRef.key">{{
           subpathToTitle(dataRef.title)
-          }}</NuxtLink>
+        }}</NuxtLink>
       </template>
       <template #switcherIcon="{ dataRef, defaultIcon }">
         <component :is="defaultIcon" />
@@ -67,7 +74,11 @@ const selectProperNode = (subPath, treeData) => {
 };
 
 const canNodeExpand = (node) => {
-  return node.children && node.children.length && !expandedKeys.value.includes(node.key);
+  return (
+    node.children &&
+    node.children.length &&
+    !expandedKeys.value.includes(node.key)
+  );
 };
 
 const expandNode = (node) => {
