@@ -516,4 +516,4 @@ Those are just a few examples of how you can use GenAI in your applications. The
 
 Learn about responsible AI practices and how to ensure that your AI models are ethical and have a positive impact!
 
-👉 [Responsible AI](../05-ResponsibleGenAI/readme.md)
+👉 [Responsible AI](./responsible-gen-ai)
