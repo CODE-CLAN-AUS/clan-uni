@@ -10,14 +10,17 @@
       :tree-data="coursesTree"
     >
       <template #icon="{ key }">
-        <NuxtLink v-if="key && isLeaf(key)" :to="key">
+        <NuxtLink v-if="key && isLeaf(key)" :to="key"> 
           <FileOutlined />
         </NuxtLink>
       </template>
       <template #title="{ dataRef }">
-        <NuxtLink v-if="dataRef" :to="dataRef.key">{{
+        <NuxtLink v-if="dataRef && !dataRef?.children?.length" :to="dataRef.key"> {{
           subpathToTitle(dataRef.title)
         }}</NuxtLink>
+        <span v-else>
+          {{ subpathToTitle(dataRef.title) }}
+        </span>
       </template>
       <template #switcherIcon="{ dataRef, defaultIcon }">
         <component :is="defaultIcon" />
