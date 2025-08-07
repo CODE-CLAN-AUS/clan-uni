@@ -9,7 +9,7 @@
               <h6 class="font-medium text-gray-500 truncate">{{authorName}}</h6>
             </div>
             <div class="flex justify-between w-full items-center">
-              <NuxtLink :to="articleLink" class="card-title text-xl">{{
+              <NuxtLink :to="article.path" class="card-title text-4xl">{{
                   article?.title
                 }}</NuxtLink>
               <span  class="text-xs text-gray-500">
@@ -22,10 +22,10 @@
       <CardDescription>{{article.description}}</CardDescription>
     </CardHeader>
     <CardContent class="content ">
-      <div v-if="article?.cover">
+      <div v-if="article?.meta?.cover" class="flex justify-center items-center">
         <img
-            :alt="article?.title"
-            :src="article?.cover"
+            :alt="article?.meta?.title"
+            :src="article?.meta?.cover"
             class="card-cover"
             ref="cardCover"
           />
@@ -145,5 +145,16 @@ onBeforeUnmount(() => {
   :deep(img) {
     max-width: 100%;
   }
+  .content{
+    .card-cover {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+  }
+}
+.prose {
+  max-width: 85ch !important;
 }
 </style>
