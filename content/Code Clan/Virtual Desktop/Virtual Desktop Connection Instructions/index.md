@@ -4,15 +4,15 @@ description: Instructions for connecting to Code Clan Virtual Desktop using Wind
 tags: ["CodeClan", "VirtualDesktop", "RDC", "Windows", "Mac", "Linux"]
 ---
 
-# Connect using Windows 
+## Connect using Windows 
 If you are using a Windows machine, you can use the RDC (Remote Desktop Connection) app. 
 Here is what you need to do ...
 <!--more-->
 
 ![Remote Desktop Connection](/media/codeclan/virtualdesktop/rdc.png)
-* open Remote Desktop Connection
-* Enter values given to you in fields Computer and User name
-* Leave the "Allow me to save credentials" checkbox unchecked
+* Open the Remote Desktop Connection app on your local Windows
+* Enter the values in Computer and User name
+* Leave the "Allow me to save credentials" unchecked
 
 
 ![Remote Desktop Connection - Display](/media/codeclan/virtualdesktop/rdc-display-tab.png)
@@ -26,10 +26,10 @@ Here is what you need to do ...
 
 
 
-# Connect using MacOS
+## Connect using MacOS
 TODO
 
-# Connect using Linux
+## Connect using Linux
 TODO
 
 
