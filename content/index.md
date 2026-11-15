@@ -1,5 +1,6 @@
 ---
 
+description: Learn software development with free hands-on courses from CODE CLAN University.
 title: Welcome to CODE CLAN University  
 author: Pouria Rabeti  
 tags: Internal
@@ -11,6 +12,18 @@ tags: Internal
 CODE CLAN University is a dynamic community forum that provides free technical training courses for software developers. Our mission is to empower individuals with the knowledge and skills they need to succeed in the tech industry. Our community is driven by a shared passion for learning and a commitment to helping one another grow. Join us today and become part of a supportive network of like-minded individuals!
 
 If you want to share educational material that is related to programming by any means, we encourage and appreciate your contribution to this project.
+
+## Course catalog
+
+Choose a topic to see its learning paths and hands-on courses.
+
+- [Databases](/databases)
+- [E-commerce and Content Management](/e-commerce-and-content-managements)
+- [Game Development](/game-development)
+- [Mobile Development](/mobile-development)
+- [Network and Security](/network-and-security)
+- [Software Engineering](/software-engineering)
+- [Web Development](/web-development)
 
 ## What type of material is suitable
 
