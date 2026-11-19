@@ -7,6 +7,14 @@ export default defineNuxtConfig({
     url: 'https://uni.codeclan.org',
     name: 'CLAN UNI'
   },
+  routeRules: {
+    '/web-development/front-end/web-components/what-are-web-components': {
+      redirect: {
+        to: '/web-development/front-end/web-components',
+        statusCode: 301,
+      },
+    },
+  },
   modules: [
     '@nuxt/content',
     '@ant-design-vue/nuxt',
